@@ -6,6 +6,8 @@ import logging
 from backend.db_connection import init_app as init_db
 from backend.simple.simple_routes import simple_routes
 from backend.ngos.ngo_routes import ngos
+from backend.payoutProfiles.payout_routes import payout_profiles
+from backend.assets.asset_routes import assets
 
 
 def create_app():
@@ -37,5 +39,7 @@ def create_app():
     app.logger.info("create_app(): registering blueprints")
     app.register_blueprint(simple_routes)
     app.register_blueprint(ngos, url_prefix="/ngo")
+    app.register_blueprint(payout_profiles, url_prefix="/payoutProfiles")
+    app.register_blueprint(assets, url_prefix="/assets")
 
     return app
