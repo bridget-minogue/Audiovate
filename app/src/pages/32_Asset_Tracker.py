@@ -81,7 +81,7 @@ try:
                     with edit_col3:
                         new_status = st.selectbox(
                             "Upload Status", ["Pending (0)", "Complete (1)"],
-                            index=a['upload_status'],
+                            index=int(a['upload_status']),
                             key=f"status_{a['asset_id']}"
                         )
 
