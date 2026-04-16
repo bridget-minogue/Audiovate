@@ -159,3 +159,55 @@ def get_top_earners():
         return jsonify({"error": str(e)}), 500
     finally:
         cursor.close()
+
+@releases.route("/releases/<int:release_id>/tracks", methods=["GET", "POST"])
+def manage_release_tracks(release_id):
+    cursor = get_db().cursor(dictionary=True)
+    try:
+        # First, verify the release exists and get its artist_id
+        cursor.execute("SELECT release_artist_id FROM `release` WHERE rel_id = %s", (release_id,))
+        release = cursor.fetchone()
+        
+        if not release:
+            return jsonify({"error": "Release not found"}), 404
+
+        # Handle GET: Return all tracks for this release
+        if request.method == "GET":
+            current_app.logger.info(f"GET /releases/{release_id}/tracks")
+            cursor.execute("SELECT * FROM track WHERE track_release_id = %s", (release_id,))
+            tracks = cursor.fetchall()
+            return jsonify(tracks), 200
+
+        # Handle POST: Create a new track for this release
+        elif request.method == "POST":
+            current_app.logger.info(f"POST /releases/{release_id}/tracks")
+            data = request.get_json()
+            
+            required_fields = ["title", "genre", "isrc_code"]
+            for field in required_fields:
+                if field not in data:
+                    return jsonify({"error": f"Missing required field: {field}"}), 400
+
+            query = """
+                INSERT INTO track (title, genre, isrc_code, track_artist_id, track_release_id)
+                VALUES (%s, %s, %s, %s, %s)
+            """
+            cursor.execute(query, (
+                data["title"],
+                data["genre"],
+                data["isrc_code"],
+                release["release_artist_id"], # Inherited securely from the release
+                release_id
+            ))
+            get_db().commit()
+            
+            return jsonify({
+                "message": "Track created successfully", 
+                "track_id": cursor.lastrowid
+            }), 201
+
+    except Error as e:
+        current_app.logger.error(f"Database error in manage_release_tracks: {e}")
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
