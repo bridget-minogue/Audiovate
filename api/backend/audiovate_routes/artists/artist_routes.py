@@ -7,6 +7,18 @@ from mysql.connector import Error
 # Create a Blueprint for Artist routes
 artists = Blueprint("artists", __name__)
 
+@artists.route("/artists", methods=["GET"])
+def get_artists():
+    cursor = get_db().cursor(dictionary=True)
+    try:
+        cursor.execute("SELECT * FROM artist")
+        artists = cursor.fetchall()
+        return jsonify(artists), 200
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+
 @artists.route("/artists/<int:artist_id>", methods=["GET"])
 def get_artist(artist_id):
     cursor = get_db().cursor(dictionary=True)
