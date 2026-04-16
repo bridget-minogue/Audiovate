@@ -50,3 +50,15 @@ def get_roster_performance(user_id):
         return jsonify({"error": str(e)}), 500
     finally:
         cursor.close()
+
+@users.route("/users", methods=["GET"])
+def get_all_users():
+    cursor = get_db().cursor(dictionary=True)
+    try:
+        cursor.execute("SELECT * FROM user")
+        users = cursor.fetchall()
+        return jsonify(users), 200
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
