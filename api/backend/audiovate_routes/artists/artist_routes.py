@@ -104,24 +104,154 @@ def get_monthly_stats(artist_id):
     finally:
         cursor.close()
 
-@artists.route("/artists/<int:artist_id>/platform-earnings", methods=["GET"])
-def get_platform_earnings(artist_id):
+@artists.route("/artists/<int:artist_id>/platforms", methods=["GET"])
+def get_artist_platforms(artist_id):
     cursor = get_db().cursor(dictionary=True)
     try:
+        user_id = request.args.get('user_id')
+        if not user_id:
+            return jsonify({"error": "user_id query parameter is required"}), 400
+
         query = """
-            SELECT
-            p.name AS platform_name,
-            SUM(s.rev_generated) AS total_earnings
-            FROM streamEvent s
-            JOIN platform p ON s.event_platform_id = p.platform_id
-            JOIN track t ON s.event_track_id = t.track_id
+            SELECT 
+                p.name AS platform_name,
+                COUNT(se.event_id) AS total_streams,
+                SUM(se.rev_generated) AS total_revenue
+            FROM platform p
+            JOIN streamEvent se ON p.platform_id = se.event_platform_id
+            JOIN track t ON se.event_track_id = t.track_id
+            JOIN artist a ON t.track_artist_id = a.artist_id
+            JOIN manages m ON a.artist_id = m.manages_artist_id
+            WHERE m.manages_user_id = %s AND a.artist_id = %s
+            GROUP BY p.platform_id, p.name
+            ORDER BY total_streams DESC;
+        """
+        cursor.execute(query, (user_id, artist_id))
+        platforms = cursor.fetchall()
+        return jsonify(platforms), 200
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+
+@artists.route("/artists/<int:artist_id>/locations", methods=["GET"])
+def get_artist_locations(artist_id):
+    cursor = get_db().cursor(dictionary=True)
+    try:
+        user_id = request.args.get('user_id')
+        if not user_id:
+            return jsonify({"error": "user_id query parameter is required"}), 400
+
+        query = """
+            SELECT 
+                l.latitude, 
+                l.longitude, 
+                l.city, 
+                l.country,
+                COUNT(DISTINCT se.event_listener_id) AS total_listeners
+            FROM location l
+            JOIN streamEvent se ON l.location_id = se.event_location_id
+            JOIN track t ON se.event_track_id = t.track_id
+            JOIN artist a ON t.track_artist_id = a.artist_id
+            JOIN manages m ON a.artist_id = m.manages_artist_id
+            WHERE m.manages_user_id = %s AND a.artist_id = %s
+            GROUP BY l.location_id, l.latitude, l.longitude, l.city, l.country
+            ORDER BY total_listeners DESC;
+        """
+        cursor.execute(query, (user_id, artist_id))
+        locations = cursor.fetchall()
+        return jsonify(locations), 200
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+
+@artists.route("/artists/<int:artist_id>/tracks/engagement", methods=["GET"])
+def get_track_engagement(artist_id):
+    cursor = get_db().cursor(dictionary=True)
+    try:
+        user_id = request.args.get('user_id')
+        if not user_id:
+            return jsonify({"error": "user_id query parameter is required"}), 400
+
+        query = """
+            SELECT 
+                t.title AS song_title,
+                COUNT(se.event_id) AS total_streams,
+                COUNT(CASE WHEN se.is_skipped = 1 THEN 1 END) AS number_of_skips
+            FROM track t
+            JOIN streamEvent se ON t.track_id = se.event_track_id
+            JOIN artist a ON t.track_artist_id = a.artist_id
+            JOIN manages m ON a.artist_id = m.manages_artist_id
+            WHERE m.manages_user_id = %s AND a.artist_id = %s
+            GROUP BY t.track_id, t.title
+            ORDER BY number_of_skips DESC;
+        """
+        cursor.execute(query, (user_id, artist_id))
+        engagement = cursor.fetchall()
+        return jsonify(engagement), 200
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+
+@artists.route("/artists/<int:artist_id>/playlists", methods=["GET"])
+def get_artist_playlists(artist_id):
+    cursor = get_db().cursor(dictionary=True)
+    try:
+        user_id = request.args.get('user_id')
+        if not user_id:
+            return jsonify({"error": "user_id query parameter is required"}), 400
+
+        query = """
+            SELECT 
+                pl.name AS playlist_name,
+                COUNT(pe.pt_event_id) AS total_streams
+            FROM playlist pl
+            JOIN playlistEvent pe ON pl.playlist_id = pe.pt_playlist_id
+            JOIN streamEvent se ON pe.pt_event_id = se.event_id
+            JOIN track t ON se.event_track_id = t.track_id
+            JOIN artist a ON t.track_artist_id = a.artist_id
+            JOIN manages m ON a.artist_id = m.manages_artist_id
+            WHERE m.manages_user_id = %s AND a.artist_id = %s
+            GROUP BY pl.playlist_id, pl.name
+            ORDER BY total_streams DESC;
+        """
+        cursor.execute(query, (user_id, artist_id))
+        playlists = cursor.fetchall()
+        return jsonify(playlists), 200
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+
+@artists.route("/artists/<int:artist_id>/tracks", methods=["GET"])
+def get_artist_tracks(artist_id):
+    cursor = get_db().cursor(dictionary=True)
+    try:
+        current_app.logger.info(f"GET /artists/{artist_id}/tracks")
+        
+        # Joining the release table to grab the release title alongside the track info
+        query = """
+            SELECT 
+                t.track_id, 
+                t.title, 
+                t.genre, 
+                t.isrc_code,
+                r.rel_id AS release_id,
+                r.title AS release_title,
+                r.release_date
+            FROM track t
+            JOIN `release` r ON t.track_release_id = r.rel_id
             WHERE t.track_artist_id = %s
-            GROUP BY p.name;
+            ORDER BY r.release_date DESC, t.track_id ASC;
         """
         cursor.execute(query, (artist_id,))
-        earnings = cursor.fetchall()
-        return jsonify(earnings), 200
+        tracks = cursor.fetchall()
+        
+        return jsonify(tracks), 200
     except Error as e:
+        current_app.logger.error(f"Database error in get_artist_tracks: {e}")
         return jsonify({"error": str(e)}), 500
     finally:
         cursor.close()
