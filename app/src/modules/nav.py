@@ -65,6 +65,32 @@ def classification_nav():
     )
 
 
+# ---- Role: label_head -------------------------------------------------------
+
+def label_head_home_nav():
+    st.sidebar.page_link(
+        "pages/30_Label_Head_Home.py", label="Label Head Home", icon="🎵"
+    )
+
+
+def royalty_splits_nav():
+    st.sidebar.page_link(
+        "pages/31_Royalty_Splits.py", label="Royalty Splits", icon="💸"
+    )
+
+
+def asset_tracker_nav():
+    st.sidebar.page_link(
+        "pages/32_Asset_Tracker.py", label="Asset Tracker", icon="📂"
+    )
+
+
+def release_overview_nav():
+    st.sidebar.page_link(
+        "pages/33_Release_Overview.py", label="Release Overview", icon="📀"
+    )
+
+
 # ---- Role: administrator ----------------------------------------------------
 
 def admin_home_nav():
@@ -110,6 +136,12 @@ def SideBarLinks(show_home=False):
             prediction_nav()
             api_test_nav()
             classification_nav()
+
+        if st.session_state["role"] == "label_head":
+            label_head_home_nav()
+            royalty_splits_nav()
+            asset_tracker_nav()
+            release_overview_nav()
 
         if st.session_state["role"] == "administrator":
             admin_home_nav()
