@@ -6,7 +6,7 @@ CREATE TABLE user (
   user_id           INT AUTO_INCREMENT PRIMARY KEY,
   first_name        VARCHAR(50),
   last_name         VARCHAR(50),
-  role              ENUM('User', 'Admin') DEFAULT 'User',
+  role              ENUM('User', 'Admin', 'Manager') DEFAULT 'User',
   email             VARCHAR(75) Unique
 );
 
@@ -87,7 +87,7 @@ CREATE TABLE playlist (
 
 CREATE TABLE `release` (
     rel_id           INT AUTO_INCREMENT PRIMARY KEY,
-    title            VARCHAR(50) NOT NULL,
+    title            VARCHAR(255) NOT NULL,
     type             ENUM('Album', 'Single', 'EP', 'Compilation'),
     status           ENUM('Processing', 'Approved', 'Released', 'Takedown'),
     release_date     DATETIME NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE manages (
 
 CREATE TABLE track (
     track_id          INT AUTO_INCREMENT PRIMARY KEY,
-    title             VARCHAR(50) NOT NULL,
+    title             VARCHAR(255) NOT NULL,
     genre             VARCHAR(50) NOT NULL,
     isrc_code         VARCHAR(12) NOT NULL,
     track_artist_id   INT NOT NULL,

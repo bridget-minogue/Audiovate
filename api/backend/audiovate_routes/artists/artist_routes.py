@@ -7,11 +7,15 @@ from mysql.connector import Error
 # Create a Blueprint for Artist routes
 artists = Blueprint("artists", __name__)
 
-@artists.route("/artists", methods=["GET"])
+@artists.route("/", methods=["GET"])
 def get_artists():
     cursor = get_db().cursor(dictionary=True)
     try:
-        cursor.execute("SELECT * FROM artist")
+        query = """
+            SELECT u.first_name, u.last_name, a.* FROM artist a
+            INNER JOIN user u ON a.artist_id = u.user_id
+        """
+        cursor.execute(query)
         artists = cursor.fetchall()
         return jsonify(artists), 200
     except Error as e:
@@ -19,7 +23,7 @@ def get_artists():
     finally:
         cursor.close()
 
-@artists.route("/artists/<int:artist_id>", methods=["GET"])
+@artists.route("/<int:artist_id>", methods=["GET"])
 def get_artist(artist_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -48,7 +52,7 @@ def get_artist(artist_id):
     finally:
         cursor.close()
 
-@artists.route("/artists/tax-status/<int:artist_id>", methods=["PUT"])
+@artists.route("/tax-status/<int:artist_id>", methods=["PUT"])
 def update_tax_status(artist_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -66,7 +70,7 @@ def update_tax_status(artist_id):
     finally:
         cursor.close()
 
-@artists.route("/artists/<int:artist_id>", methods=["PUT"])
+@artists.route("/<int:artist_id>", methods=["PUT"])
 def update_artist_profile(artist_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -93,7 +97,7 @@ def update_artist_profile(artist_id):
     finally:
         cursor.close()
 
-@artists.route("/artists/<int:artist_id>/streaming-stats", methods=["GET"])
+@artists.route("/<int:artist_id>/streaming-stats", methods=["GET"])
 def get_monthly_stats(artist_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -116,7 +120,7 @@ def get_monthly_stats(artist_id):
     finally:
         cursor.close()
 
-@artists.route("/artists/<int:artist_id>/platforms", methods=["GET"])
+@artists.route("/<int:artist_id>/platforms", methods=["GET"])
 def get_artist_platforms(artist_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -146,7 +150,7 @@ def get_artist_platforms(artist_id):
     finally:
         cursor.close()
 
-@artists.route("/artists/<int:artist_id>/locations", methods=["GET"])
+@artists.route("/<int:artist_id>/locations", methods=["GET"])
 def get_artist_locations(artist_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -178,7 +182,7 @@ def get_artist_locations(artist_id):
     finally:
         cursor.close()
 
-@artists.route("/artists/<int:artist_id>/tracks/engagement", methods=["GET"])
+@artists.route("/<int:artist_id>/tracks/engagement", methods=["GET"])
 def get_track_engagement(artist_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -207,7 +211,7 @@ def get_track_engagement(artist_id):
     finally:
         cursor.close()
 
-@artists.route("/artists/<int:artist_id>/playlists", methods=["GET"])
+@artists.route("/<int:artist_id>/playlists", methods=["GET"])
 def get_artist_playlists(artist_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -237,7 +241,7 @@ def get_artist_playlists(artist_id):
     finally:
         cursor.close()
 
-@artists.route("/artists/<int:artist_id>/tracks", methods=["GET"])
+@artists.route("/<int:artist_id>/tracks", methods=["GET"])
 def get_artist_tracks(artist_id):
     cursor = get_db().cursor(dictionary=True)
     try:
