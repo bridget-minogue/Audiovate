@@ -16,6 +16,8 @@ NUM_STREAMS = 150
 
 def generate_full_mysql_data():
     os.makedirs('dataset', exist_ok=True)
+
+    user_roles = {}
     
     SCHEMA_PATH = 'database-files/00-audiovate.sql'
 
@@ -53,9 +55,13 @@ def generate_full_mysql_data():
         # 1. user
         f.write("-- 1. user\n")
         for i in range(1, NUM_USERS + 1):
-            role = random.choice(['User', 'Admin', 'Manager'])
+            role = random.choice(['User', 'Admin', 'Data Analyst', 'Label Head'])
+            user_roles[i] = role
             f.write(f"INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES "
                     f"({i}, '{fake.first_name()}', '{fake.last_name()}', '{role}', '{fake.unique.email()}');\n")
+            
+        eligible_artist_users = [uid for uid, role in user_roles.items() if role == 'User']
+        eligible_managers = [uid for uid, role in user_roles.items() if role != 'Admin']
 
         # 2. location
         f.write("\n-- 2. location\n")
@@ -75,8 +81,12 @@ def generate_full_mysql_data():
             f.write(f"INSERT INTO platform (platform_id, name, estim_rev_per_unit) VALUES ({i}, '{name}', {rev});\n")
 
         # 4. artist
+        actual_artist_ids = []
         f.write("\n-- 4. artist\n")
-        for i in range(1, NUM_ARTISTS + 1):
+        num_to_create = min(NUM_ARTISTS, len(eligible_artist_users))
+        for i in range(1, num_to_create + 1):
+            user_id = eligible_artist_users[i-1]
+            actual_artist_ids.append(i)
             f.write(f"INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES "
                     f"({i}, '{fake.user_name()}', '{fake.sentence()}', {random.randint(0,1)}, {i});\n")
 
@@ -115,8 +125,16 @@ def generate_full_mysql_data():
 
         # 10. manages (Relational table)
         f.write("\n-- 10. manages\n")
-        for i in range(1, NUM_ARTISTS + 1):
-            f.write(f"INSERT INTO manages (manages_user_id, manages_artist_id) VALUES ({i}, {i});\n")
+        f.write("-- Artists managing themselves\n")
+        for a_id in actual_artist_ids:
+            u_id = eligible_artist_users[a_id-1]
+            f.write(f"INSERT INTO manages (manages_user_id, manages_artist_id) VALUES ({u_id}, {a_id});\n")
+        
+        f.write("-- Additional management assignments (No Admins)\n")
+        for _ in range(15):
+            m_uid = random.choice(eligible_managers)
+            m_aid = random.choice(actual_artist_ids)
+            f.write(f"INSERT IGNORE INTO manages (manages_user_id, manages_artist_id) VALUES ({m_uid}, {m_aid});\n")
 
         # 11. track
         f.write("\n-- 11. track\n")

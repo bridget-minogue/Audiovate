@@ -6,7 +6,7 @@ CREATE TABLE user (
   user_id           INT AUTO_INCREMENT PRIMARY KEY,
   first_name        VARCHAR(50),
   last_name         VARCHAR(50),
-  role              ENUM('User', 'Admin', 'Manager') DEFAULT 'User',
+  role              ENUM('User', 'Admin', 'Label Head', 'Data Analyst') DEFAULT 'User',
   email             VARCHAR(75) Unique
 );
 

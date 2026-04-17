@@ -57,39 +57,24 @@ if all_artists:
         st.session_state['artist_id'] = user_data['artist_id']
         st.session_state['first_name'] = user_data['first_name']
         st.switch_page('pages/00_Artist_Home.py')
-    else:
-        st.warning("No artists found. Check if the database is seeded.")
 
 st.divider()
 
-st.markdown("### Manager")
+st.markdown("### Data Analyst")
 
-managers = [u for u in all_users if u.get('role', '').lower() == 'manager']
-if managers:
-    manager_map = {f"{m['first_name']} {m['last_name']}": m for m in managers}
-    selected_manager = st.selectbox("Choose a manager", options=list(manager_map.keys()), key="manager_select")
+data_analysts = [u for u in all_users if u.get('role', '').lower() == 'data analyst']
+if data_analysts:
+    data_analyst_map = {f"{da['first_name']} {da['last_name']}": da for da in data_analysts}
+    selected_data_analyst = st.selectbox("Choose a data analyst", options=list(data_analyst_map.keys()), key="data_analyst_select")
 
-    if st.button("Act as Manager", type="primary", use_container_width=True):
-        data = manager_map[selected_manager]
+    if st.button("Act as Data Analyst", type="primary", use_container_width=True):
+        data = data_analyst_map[selected_data_analyst]
         st.session_state['authenticated'] = True
-        st.session_state['role'] = 'manager'
-        st.session_state['manager_id'] = data['user_id']
+        st.session_state['role'] = 'data_analyst'
+        st.session_state['data_analyst_id'] = data['user_id']
         st.session_state['first_name'] = data['first_name']
         st.session_state['last_name'] = data['last_name']
-        st.switch_page('pages/10_Manager_Home.py')
-else:
-    st.info("No managers currently in system.")
-
-st.divider()
-
-st.markdown("### Label Head")
-
-if st.button("Act as Marcus, a Label Head", type="primary", use_container_width=True):
-    st.session_state['authenticated'] = True
-    st.session_state['role'] = 'label_head'
-    st.session_state['first_name'] = 'Marcus'
-    logger.info("Logging in as Label Head Persona")
-    st.switch_page('pages/30_Label_Head_Home.py')
+        st.switch_page('pages/10_Data_Analyst_Home.py')
 
 st.divider()
 
@@ -107,3 +92,20 @@ if admins:
         st.session_state['first_name'] = data['first_name']
         st.session_state['last_name'] = data['last_name']
         st.switch_page('pages/20_Admin_Home.py')
+
+st.markdown("### Label Head")
+label_heads = [u for u in all_users if u.get('role', '').lower() == 'label head']
+if label_heads:
+    label_head_map = {f"{lh['first_name']} {lh['last_name']}": lh for lh in label_heads}
+    selected_label_head = st.selectbox("Choose a label head", options=list(label_head_map.keys()), key="label_head_select")
+
+    if st.button("Act as Label Head", type="primary", use_container_width=True):
+        data = label_head_map[selected_label_head]
+        st.session_state['authenticated'] = True
+        st.session_state['role'] = 'label_head'
+        st.session_state['label_head_id'] = data['user_id']
+        st.session_state['first_name'] = data['first_name']
+        st.session_state['last_name'] = data['last_name']
+
+        logger.info("Logging in as Label Head Persona")
+        st.switch_page('pages/30_Label_Head_Home.py')
