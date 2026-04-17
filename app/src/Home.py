@@ -82,6 +82,17 @@ else:
 
 st.divider()
 
+st.markdown("### Label Head")
+
+if st.button("Act as Marcus, a Label Head", type="primary", use_container_width=True):
+    st.session_state['authenticated'] = True
+    st.session_state['role'] = 'label_head'
+    st.session_state['first_name'] = 'Marcus'
+    logger.info("Logging in as Label Head Persona")
+    st.switch_page('pages/30_Label_Head_Home.py')
+
+st.divider()
+
 st.markdown("### System Admin")
 admins = [u for u in all_users if u.get('role', '').lower() == 'admin']
 if admins:
