@@ -29,11 +29,15 @@ def get_artist(artist_id):
     try:
         query = """
             SELECT
-            a. *,
-            u.first_name AS legal_first_name,
-            u.last_name AS legal_last_name
+            u.first_name, 
+            u.last_name, 
+            a.artist_id, 
+            a.stage_name, 
+            a.bio, 
+            a.profile_pic, 
+            a.instagram
             FROM artist a
-            JOIN user u ON a.user_id = u.id
+            JOIN user u ON a.artist_user_id = u.user_id
             WHERE a.artist_id = %s
         """
         cursor.execute(query, (artist_id,))
@@ -43,11 +47,12 @@ def get_artist(artist_id):
             return jsonify({"error": "artist not found"}), 404
 
         # Reuse the same cursor for the follow-up queries
-        cursor.execute("SELECT * FROM release WHERE artist_id = %s", (artist_id,))
+        cursor.execute("SELECT * FROM `release` WHERE release_artist_id = %s", (artist_id,))
         artist["releases"] = cursor.fetchall()
 
         return jsonify(artist), 200
     except Error as e:
+        print(f"ERROR in GET artist: {e}")
         return jsonify({"error": str(e)}), 500
     finally:
         cursor.close()
@@ -72,7 +77,8 @@ def update_tax_status(artist_id):
 
 @artists.route("/<int:artist_id>", methods=["PUT"])
 def update_artist_profile(artist_id):
-    cursor = get_db().cursor(dictionary=True)
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
     try:
         data = request.get_json()
         cursor.execute("SELECT artist_id FROM artist WHERE artist_id = %s", (artist_id,))
@@ -89,7 +95,7 @@ def update_artist_profile(artist_id):
         params.append(artist_id)
         query = f"UPDATE artist SET {', '.join(update_fields)} WHERE artist_id = %s"
         cursor.execute(query, params)
-        get_db().commit()
+        db.commit()
 
         return jsonify({"message": "Artist profile updated successfully"}), 200
     except Error as e:

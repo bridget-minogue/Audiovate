@@ -93,6 +93,8 @@ if admins:
         st.session_state['last_name'] = data['last_name']
         st.switch_page('pages/20_Admin_Home.py')
 
+st.divider()
+
 st.markdown("### Label Head")
 label_heads = [u for u in all_users if u.get('role', '').lower() == 'label head']
 if label_heads:

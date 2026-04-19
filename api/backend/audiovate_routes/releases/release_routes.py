@@ -13,10 +13,10 @@ def create_release(artist_id):
     try:
         data = request.get_json()
         release_query = """
-            INSERT INTO release (artist_id, title, description, release_date)
-            VALUES (%s, %s, %s, %s)
+            INSERT INTO `release` (release_artist_id, title, type, release_date, status)
+            VALUES (%s, %s, %s, %s, %s)
         """
-        release_values = (data["title"], data["type"], 'Processing', data["release_date"], artist_id)
+        release_values = (artist_id, data["title"], data["type"], data["release_date"], 'Processing')
         cursor.execute(release_query, release_values)
         
         new_release_id = cursor.lastrowid
@@ -37,6 +37,8 @@ def create_release(artist_id):
             asset_values = (asset["file_url"], asset["file_type"], 'Processing', new_release_id)
             cursor.execute(assert_query, asset_values)
 
+        get_db().commit()
+
         return jsonify({"message": "Release created successfully", "release_id": new_release_id}), 201
     except Error as e:
         return jsonify({"error": str(e)}), 500
@@ -50,9 +52,9 @@ def get_all_releases():
 
     try:
         if status_filter:
-            cursor.execute("SELECT * FROM release WHERE status = %s", (status_filter,))
+            cursor.execute("SELECT * FROM `release` WHERE status = %s", (status_filter,))
         else:
-            cursor.execute("SELECT * FROM release")
+            cursor.execute("SELECT * FROM `release`")
 
         releases = cursor.fetchall()
         return jsonify(releases), 200

@@ -15,23 +15,24 @@ def about_page_nav():
     st.sidebar.page_link("pages/30_About.py", label="About", icon="🧠")
 
 
-# ---- Role: pol_strat_advisor ------------------------------------------------
+# ---- Role: artist ------------------------------------------------
 
-def pol_strat_home_nav():
+def artist_home_nav():
     st.sidebar.page_link(
-        "pages/00_Pol_Strat_Home.py", label="Political Strategist Home", icon="👤"
+        "pages/00_Artist_Home.py", label="Artist Home", icon="👤"
     )
 
 
-def world_bank_viz_nav():
+def artist_library_nav():
     st.sidebar.page_link(
-        "pages/01_World_Bank_Viz.py", label="World Bank Visualization", icon="🏦"
+        "pages/01_Artist_Library.py", label="Artist Library", icon="📚"
     )
 
 
-def map_demo_nav():
-    st.sidebar.page_link("pages/02_Map_Demo.py", label="Map Demonstration", icon="🗺️")
-
+def artist_stats_nav():
+    st.sidebar.page_link(
+        "pages/02_Artist_Stats.py", label="Artist Stats", icon="📊"
+    )
 
 # ---- Role: usaid_worker -----------------------------------------------------
 
@@ -124,18 +125,13 @@ def SideBarLinks(show_home=False):
 
     if st.session_state["authenticated"]:
 
-        if st.session_state["role"] == "pol_strat_advisor":
-            pol_strat_home_nav()
-            world_bank_viz_nav()
-            map_demo_nav()
-
-        if st.session_state["role"] == "usaid_worker":
-            usaid_worker_home_nav()
-            ngo_directory_nav()
-            add_ngo_nav()
-            prediction_nav()
-            api_test_nav()
-            classification_nav()
+        if st.session_state["role"] == "artist":
+            artist_home_nav()
+            artist_library_nav()
+            artist_stats_nav()
+        
+        if st.session_state["role"] == "data_analyst":
+            pass
 
         if st.session_state["role"] == "label_head":
             label_head_home_nav()
@@ -143,7 +139,7 @@ def SideBarLinks(show_home=False):
             asset_tracker_nav()
             release_overview_nav()
 
-        if st.session_state["role"] == "administrator":
+        if st.session_state["role"] == "admin":
             admin_home_nav()
             ml_model_mgmt_nav()
 
