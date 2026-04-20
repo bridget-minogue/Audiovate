@@ -234,6 +234,46 @@ INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (22, 'Je
 INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (23, 'Thomas', 'Edwards', 'Admin', 'mbarnes@example.net');
 INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (24, 'Ryan', 'Ramirez', 'Label Head', 'upatterson@example.com');
 INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (25, 'James', 'Peters', 'Data Analyst', 'hduffy@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (26, 'Monica', 'Guzman', 'User', 'mguzman@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (27, 'Derek', 'Vance', 'Label Head', 'dvance99@example.net');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (28, 'Elena', 'Rodriguez', 'Data Analyst', 'elena.rod@example.org');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (29, 'Marcus', 'Webb', 'Admin', 'mwebb_admin@example.net');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (30, 'Stacy', 'Miller', 'User', 'smiller88@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (31, 'Philip', 'Banks', 'Label Head', 'pbanks@example.org');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (32, 'Diana', 'Prince', 'Data Analyst', 'dprince@example.net');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (33, 'Victor', 'Stone', 'Admin', 'vstone@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (34, 'Grace', 'Hopper', 'Data Analyst', 'ghopper@example.org');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (35, 'Julian', 'Casablancas', 'Label Head', 'jclancas@example.net');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (36, 'Naomi', 'Nagata', 'User', 'nnagata@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (37, 'Xavier', 'Thorpe', 'User', 'xthorpe@example.org');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (38, 'Iris', 'West', 'Admin', 'iwest@example.net');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (39, 'Arthur', 'Curry', 'Label Head', 'acurry@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (40, 'Chloe', 'Sullivan', 'Data Analyst', 'csullivan@example.org');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (41, 'Franklin', 'Clinton', 'User', 'fclinton@example.net');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (42, 'Sonia', 'Khan', 'Label Head', 'skhan@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (43, 'Leo', 'Fitz', 'Admin', 'lfitz@example.org');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (44, 'Jemma', 'Simmons', 'Data Analyst', 'jsimmons@example.net');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (45, 'Harvey', 'Dent', 'Label Head', 'hdent@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (46, 'Miles', 'Morales', 'User', 'm.morales@example.net');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (47, 'Gwen', 'Stacy', 'Label Head', 'g.stacy@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (48, 'Logan', 'Howlett', 'Admin', 'weaponx@example.org');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (49, 'Natasha', 'Romanoff', 'Data Analyst', 'widow.black@example.net');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (50, 'Peter', 'Parker', 'User', 'dailybugle@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (51, 'Wanda', 'Maximoff', 'Label Head', 'scarlet.w@example.org');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (52, 'Steve', 'Rogers', 'Admin', 'first.avenger@example.net');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (53, 'Tony', 'Stark', 'Label Head', 'iron.man@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (54, 'Bruce', 'Banner', 'Data Analyst', 'gamma.ray@example.org');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (55, 'Thor', 'Odinson', 'User', 'god.thunder@example.net');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (56, 'Carol', 'Danvers', 'Admin', 'captain.m@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (57, 'Sam', 'Wilson', 'User', 'falcon.s@example.org');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (58, 'Bucky', 'Barnes', 'Data Analyst', 'winter.s@example.net');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (59, 'Scott', 'Lang', 'User', 'ant.man@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (60, 'Hope', 'Van Dyne', 'Label Head', 'wasp.h@example.org');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (61, 'TChalla', 'King', 'Admin', 'panther.t@example.net');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (62, 'Stephen', 'Strange', 'Data Analyst', 'sorcerer.s@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (63, 'Jean', 'Grey', 'Label Head', 'phoenix.j@example.org');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (64, 'Bobby', 'Drake', 'User', 'iceman.b@example.net');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (65, 'Ororo', 'Munroe', 'Admin', 'storm.o@example.com');
 
 -- 2. location
 INSERT INTO location (location_id, country, region_state, city, postal_code, longitude, latitude) VALUES (1, 'Fiji', 'Central', 'Suva', 2625, 178, -18);
@@ -263,6 +303,26 @@ INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) V
 INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (3, 'Kali J', 'Rising hip-hop artist out of Atlanta. Sharp lyricism over trap-influenced production.', 0, 3);
 INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (4, 'MITCH', 'Global hip-hop superstar. 10 billion+ streams worldwide, multiple Grammy nominations.', 1, 4);
 INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (5, 'Alicia A.', 'Soulful R&B singer-songwriter. Intimate sound with a dedicated niche following.', 0, 5);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (6, 'Luna Sol', 'Ethereal dream-pop producer blending synth-heavy textures with organic vocals.', 1, 5);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (7, 'Ghost Train', 'Americana trio known for haunting harmonies and storytelling through acoustic ballads.', 0, 6);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (8, 'Vapor Wave', 'Lo-fi electronic artist specializing in nostalgic beats and retro-futurist soundscapes.', 0, 9);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (9, 'Siren Echo', 'Opera-trained vocalist experimenting with avant-garde electronic and dark pop.', 1, 15);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (10, 'Neon Highway', 'Synth-wave duo inspired by 80s cinema and driving basslines.', 0, 22);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (11, 'Miles Ahead', 'Modern jazz ensemble pushing the boundaries of improvisation and fusion.', 1, 26);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (12, 'Urban Pulse', 'Grime artist from London with a focus on social commentary and high-energy flow.', 0, 30);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (13, 'Fable & Fern', 'Folk singer-songwriter capturing the quiet beauty of rural life.', 0, 36);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (14, 'Iron Root', 'Alternative metal band known for heavy riffs and melodic choruses.', 1, 37);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (15, 'Pixel Heart', 'Chiptune artist creating high-energy dance music using vintage game consoles.', 0, 41);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (16, 'Velvet Morning', 'Slowcore band focused on minimalist arrangements and melancholic lyrics.', 0, 46);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (17, 'Beat Mechanic', 'Old-school boom-bap producer with a penchant for rare soul samples.', 1, 50);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (18, 'Atlas Rising', 'Cinematic orchestral composer creating scores for indie films and games.', 0, 55);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (19, 'Saffron Sky', 'Psych-rock multi-instrumentalist with a flair for 1960s-inspired sitar riffs.', 0, 57);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (20, 'Digital Drift', 'Ambient techno producer known for immersive, long-form soundscapes.', 1, 59);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (21, 'Rogue Signal', 'Hardcore punk outfit delivering fast, aggressive sets across the tri-state area.', 0, 64);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (22, 'Cora & the Whale', 'Indie-folk duo featuring cello-driven melodies and seafaring themes.', 1, 5);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (23, 'Bassline Bandit', 'EDM DJ specializing in heavy dubstep and industrial club tracks.', 0, 6);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (24, 'Midnight Bloom', 'Neo-soul artist with a velvety vocal range and jazzy piano arrangements.', 1, 9);
+INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (25, 'Timber & Twine', 'Bluegrass collective reviving traditional stomp-and-holler energy.', 0, 15);
 
 -- 5. systemLog
 INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (1, 1, 'Understand notice chance throughout pick have look.', 2, 1);
@@ -345,26 +405,26 @@ INSERT INTO playlist (playlist_id, name, type, p_platform_id) VALUES (8, 'Charge
 INSERT INTO playlist (playlist_id, name, type, p_platform_id) VALUES (9, 'Remember Mix', 'Algorithm', 1);
 
 -- 9. `release`
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (1, 'Pre-emptive bottom-line success', 'Compilation', 'Takedown', '2026-01-14 06:12:21.638835', 1);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (2, 'Distributed disintermediate archive', 'Single', 'Takedown', '2026-01-28 06:05:02.648461', 5);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (3, 'Multi-channeled cohesive benchmark', 'EP', 'Processing', '2026-01-23 21:04:54.305574', 11);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (4, 'Function-based coherent firmware', 'Single', 'Approved', '2026-04-06 14:07:15.266184', 4);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (5, 'Digitized leadingedge protocol', 'Single', 'Processing', '2026-01-31 06:42:03.956467', 8);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (6, 'Triple-buffered bi-directional function', 'Compilation', 'Takedown', '2026-03-30 13:38:44.511863', 7);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (7, 'Advanced context-sensitive toolset', 'Album', 'Approved', '2026-02-21 00:41:40.029166', 11);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (8, 'Diverse regional capability', 'Album', 'Released', '2026-02-02 00:46:37.254684', 8);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (9, 'Progressive holistic service-desk', 'EP', 'Approved', '2026-03-17 06:52:43.688656', 3);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (10, 'Reactive multimedia analyzer', 'Compilation', 'Approved', '2026-02-10 06:42:08.921416', 6);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (11, 'Total transitional hardware', 'Compilation', 'Approved', '2026-03-24 19:54:10.791114', 11);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (12, 'Automated methodical secured line', 'Album', 'Approved', '2026-02-04 06:41:10.634544', 1);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (13, 'Proactive contextually-based focus group', 'Album', 'Released', '2026-02-21 01:56:18.971114', 7);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (14, 'Profit-focused motivating projection', 'EP', 'Approved', '2026-01-09 05:19:23.556654', 1);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (15, 'Versatile 6thgeneration intranet', 'Single', 'Approved', '2026-01-25 07:08:22.754785', 10);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (16, 'Upgradable non-volatile firmware', 'Album', 'Takedown', '2026-04-01 05:33:58.831128', 1);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (17, 'Cross-group foreground info-mediaries', 'EP', 'Approved', '2026-03-12 06:43:45.341260', 2);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (18, 'Innovative real-time middleware', 'Compilation', 'Processing', '2026-04-07 22:59:32.284516', 8);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (19, 'Profound leadingedge intranet', 'Album', 'Approved', '2026-03-18 21:55:09.042409', 8);
-INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (20, 'Ameliorated transitional secured line', 'Album', 'Released', '2026-01-02 20:26:19.317417', 12);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (1, 'Midnight in the Garden', 'Compilation', 'Takedown', '2026-01-14 06:12:21.638835', 1);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (2, 'Ghost Signals', 'Single', 'Takedown', '2026-01-28 06:05:02.648461', 5);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (3, 'Paper Planes & Plastic Hearts', 'EP', 'Processing', '2026-01-23 21:04:54.305574', 11);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (4, 'After Hours', 'Single', 'Approved', '2026-04-06 14:07:15.266184', 4);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (5, 'Electric Pulse', 'Single', 'Processing', '2026-01-31 06:42:03.956467', 8);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (6, 'Best of the Indie Years', 'Compilation', 'Takedown', '2026-03-30 13:38:44.511863', 7);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (7, 'Concrete Jungle', 'Album', 'Approved', '2026-02-21 00:41:40.029166', 11);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (8, 'Echoes of the Valley', 'Album', 'Released', '2026-02-02 00:46:37.254684', 8);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (9, 'Starlight Melodies', 'EP', 'Approved', '2026-03-17 06:52:43.688656', 3);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (10, 'Summer Anthems 2026', 'Compilation', 'Approved', '2026-02-10 06:42:08.921416', 6);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (11, 'Retrograde Vol. 1', 'Compilation', 'Approved', '2026-03-24 19:54:10.791114', 11);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (12, 'The Long Way Home', 'Album', 'Approved', '2026-02-04 06:41:10.634544', 1);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (13, 'Wildfire Dreams', 'Album', 'Released', '2026-02-21 01:56:18.971114', 7);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (14, 'Neon Horizon', 'EP', 'Approved', '2026-01-09 05:19:23.556654', 1);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (15, 'Fade to Blue', 'Single', 'Approved', '2026-01-25 07:08:22.754785', 10);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (16, 'Shadow Work', 'Album', 'Takedown', '2026-04-01 05:33:58.831128', 1);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (17, 'Lost in Translation', 'EP', 'Approved', '2026-03-12 06:43:45.341260', 2);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (18, 'Lo-Fi Chill Sessions', 'Compilation', 'Processing', '2026-04-07 22:59:32.284516', 8);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (19, 'Golden Hour', 'Album', 'Approved', '2026-03-18 21:55:09.042409', 8);
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id) VALUES (20, 'Under the Same Sky', 'Album', 'Released', '2026-01-02 20:26:19.317417', 12);
 
 -- 10. manages
 -- Artists managing themselves
