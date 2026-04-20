@@ -72,6 +72,7 @@ if data_analysts:
         st.session_state['authenticated'] = True
         st.session_state['role'] = 'data_analyst'
         st.session_state['data_analyst_id'] = data['user_id']
+        st.session_state['user_id'] = data['user_id']
         st.session_state['first_name'] = data['first_name']
         st.session_state['last_name'] = data['last_name']
         st.switch_page('pages/10_Data_Analyst_Home.py')
