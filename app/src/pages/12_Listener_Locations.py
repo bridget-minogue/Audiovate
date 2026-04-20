@@ -42,10 +42,8 @@ try:
                 "ScatterplotLayer",
                 data=df,
                 get_position=["longitude", "latitude"],
-                get_color=[200, 30, 0, 160],
-                get_radius="total_listeners * 20000",
-                radius_min_pixels=4,
-                radius_max_pixels=60,
+                get_color=[200, 30, 0, 160], # Audiovate Red (approx)
+                get_radius="total_listeners * 100", # Scale radius for visibility
                 pickable=True,
                 auto_highlight=True
             )
@@ -54,13 +52,13 @@ try:
             view_state = pdk.ViewState(
                 latitude=center_lat,
                 longitude=center_lon,
-                zoom=2,
+                zoom=3,
                 pitch=0,
             )
 
             # Render the map
             st.pydeck_chart(pdk.Deck(
-                map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+                map_style="mapbox://styles/mapbox/light-v9",
                 layers=[layer],
                 initial_view_state=view_state,
                 tooltip={"html": "<b>City:</b> {city}, {country} <br/> <b>Listeners:</b> {total_listeners}"}
