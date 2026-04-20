@@ -92,7 +92,7 @@ if admins:
         st.session_state['admin_id'] = data['user_id']
         st.session_state['first_name'] = data['first_name']
         st.session_state['last_name'] = data['last_name']
-        st.switch_page('pages/20_Admin_Home.py')
+        st.switch_page('pages/20_System_Admin_Home.py')
 
 st.divider()
 
