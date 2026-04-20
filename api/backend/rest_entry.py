@@ -10,6 +10,8 @@ from backend.audiovate_routes.assets.asset_routes import assets
 from backend.audiovate_routes.artists.artist_routes import artists
 from backend.audiovate_routes.users.user_routes import users
 from backend.audiovate_routes.releases.release_routes import releases
+from backend.audiovate_routes.systemLogs.systemLog_routes import system_logs
+from backend.audiovate_routes.helpRequests.helpRequest_routes import help_requests
 
 
 def create_app():
@@ -48,6 +50,8 @@ def create_app():
     app.register_blueprint(artists, url_prefix="/artists")
     app.register_blueprint(users, url_prefix="/users")
     app.register_blueprint(releases)
+    app.register_blueprint(system_logs)
+    app.register_blueprint(help_requests)
 
 
     return app
