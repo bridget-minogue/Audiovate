@@ -37,16 +37,19 @@ try:
             st.write(f"**{len(profiles)} profile(s) found**")
 
             for p in profiles:
-                with st.expander(
-                    f"ID {p['payout_id']} — {p['collab_email']} | {p['role']} | {p['split_percentage']}% | Release {p['pp_release_id']}"
-                ):
+                release_title = p.get('release_title') or f"Release {p['pp_release_id']}"
+                release_label = f"{release_title} (ID {p['pp_release_id']})"
+                artist_label  = p.get('artist_name', 'Unknown Artist')
+                expander_label = f"ID {p['payout_id']} — {p['collab_email']} | {p['role']} | {p['split_percentage']}% | {artist_label} — {release_title}"
+                with st.expander(expander_label):
                     col1, col2 = st.columns(2)
                     with col1:
                         st.write(f"**Collaborator Email:** {p['collab_email']}")
                         st.write(f"**Role:** {p['role']}")
                     with col2:
                         st.write(f"**Split %:** {p['split_percentage']}%")
-                        st.write(f"**Release ID:** {p['pp_release_id']}")
+                        st.write(f"**Artist:** {artist_label}")
+                        st.write(f"**Release:** {release_label}")
 
                     # ── Inline edit ──
                     st.write("**Edit this profile:**")

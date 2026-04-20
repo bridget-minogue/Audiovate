@@ -27,7 +27,6 @@ if "overview_release_id" not in st.session_state:
     st.stop()
 
 rid = st.session_state["overview_release_id"]
-st.subheader(f"Release ID: {rid}")
 
 payout_col, asset_col = st.columns(2)
 
@@ -42,6 +41,10 @@ with payout_col:
             if not profiles:
                 st.info("No payout profiles for this release.")
             else:
+                release_title = profiles[0].get("release_title", f"Release {rid}")
+                artist_name   = profiles[0].get("artist_name", "Unknown Artist")
+                st.caption(f"**{artist_name}** — {release_title}")
+
                 total_split = sum(float(p["split_percentage"]) for p in profiles)
                 st.metric("Total Collaborators", len(profiles))
                 remaining = 100 - total_split
@@ -79,19 +82,24 @@ with asset_col:
             else:
                 STATUS_LABEL = {0: "⏳ Pending", 1: "✅ Complete"}
 
-                audio    = [a for a in assets if a["file_type"] == "Audio"]
-                artwork  = [a for a in assets if a["file_type"] == "Artwork"]
-                credits  = [a for a in assets if a["file_type"] == "Credits"]
+                release_title = assets[0].get("release_title", f"Release {rid}")
+                artist_name   = assets[0].get("artist_name", "Unknown Artist")
+                st.caption(f"**{artist_name}** — {release_title}")
+
+                audio_files   = [a for a in assets if a["file_type"] == "Audio"]
+                artwork_files = [a for a in assets if a["file_type"] == "Artwork"]
+                credits_files = [a for a in assets if a["file_type"] == "Credits"]
 
                 m1, m2, m3 = st.columns(3)
-                m1.metric("Audio Files", len(audio))
-                m2.metric("Artwork Files", len(artwork))
-                m3.metric("Credits Files", len(credits))
+                m1.metric("Audio Files", len(audio_files))
+                m2.metric("Artwork Files", len(artwork_files))
+                m3.metric("Credits Files", len(credits_files))
 
                 for a in assets:
-                    status_label = STATUS_LABEL.get(a["upload_status"], str(a["upload_status"]))
+                    status_label = STATUS_LABEL.get(int(a["upload_status"]), str(a["upload_status"]))
                     with st.expander(f"{a['file_type']} — {status_label} (ID {a['asset_id']})"):
                         st.write(f"**Asset ID:** {a['asset_id']}")
+                        st.write(f"**Artist:** {a.get('artist_name', 'Unknown Artist')}")
                         st.write(f"**File Type:** {a['file_type']}")
                         st.write(f"**Status:** {status_label}")
                         st.write(f"**File URL:** {a['file_url']}")

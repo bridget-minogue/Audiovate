@@ -17,11 +17,11 @@ def get_all_assets():
         upload_status = request.args.get("upload_status")
         file_type = request.args.get("file_type")
 
-        # Join release so callers can see the release title alongside the asset
         query = """
-            SELECT a.*, r.title AS release_title
+            SELECT a.*, r.title AS release_title, ar.stage_name AS artist_name
             FROM asset a
             JOIN `release` r ON a.asset_release_id = r.rel_id
+            JOIN artist ar ON r.release_artist_id = ar.artist_id
             WHERE 1=1
         """
         params = []
@@ -55,9 +55,10 @@ def get_asset(asset_id):
 
         cursor.execute(
             """
-            SELECT a.*, r.title AS release_title
+            SELECT a.*, r.title AS release_title, ar.stage_name AS artist_name
             FROM asset a
             JOIN `release` r ON a.asset_release_id = r.rel_id
+            JOIN artist ar ON r.release_artist_id = ar.artist_id
             WHERE a.asset_id = %s
             """,
             (asset_id,),
@@ -89,7 +90,14 @@ def get_assets_by_release(release_id):
             return jsonify({"error": "Release not found"}), 404
 
         cursor.execute(
-            "SELECT * FROM asset WHERE asset_release_id = %s ORDER BY file_type",
+            """
+            SELECT a.*, r.title AS release_title, ar.stage_name AS artist_name
+            FROM asset a
+            JOIN `release` r ON a.asset_release_id = r.rel_id
+            JOIN artist ar ON r.release_artist_id = ar.artist_id
+            WHERE a.asset_release_id = %s
+            ORDER BY a.file_type
+            """,
             (release_id,),
         )
         asset_list = cursor.fetchall()
