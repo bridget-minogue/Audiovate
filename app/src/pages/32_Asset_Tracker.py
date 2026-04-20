@@ -53,14 +53,15 @@ try:
             STATUS_LABEL = {0: "⏳ Pending", 1: "✅ Complete"}
 
             for a in assets:
-                release_title = a.get("release_title", f"Release {a['asset_release_id']}")
-                status_label = STATUS_LABEL.get(a["upload_status"], str(a["upload_status"]))
+                release_title = a.get("release_title") or f"Release {a['asset_release_id']}"
+                artist_name   = a.get("artist_name", "Unknown Artist")
+                status_label  = STATUS_LABEL.get(a["upload_status"], str(a["upload_status"]))
+                expander_label = f"ID {a['asset_id']} — {a['file_type']} | {status_label} | {artist_name} — {release_title}"
 
-                with st.expander(
-                    f"ID {a['asset_id']} — {a['file_type']} | {status_label} | {release_title}"
-                ):
+                with st.expander(expander_label):
                     col1, col2 = st.columns(2)
                     with col1:
+                        st.write(f"**Artist:** {artist_name}")
                         st.write(f"**File Type:** {a['file_type']}")
                         st.write(f"**Upload Status:** {status_label}")
                     with col2:

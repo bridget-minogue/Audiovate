@@ -23,11 +23,17 @@ def get_all_payout_profiles():
 
         release_id = request.args.get("release_id")
 
-        query = "SELECT * FROM payoutProfiles WHERE 1=1"
+        query = """
+            SELECT pp.*, r.title AS release_title, a.stage_name AS artist_name
+            FROM payoutProfiles pp
+            JOIN `release` r ON pp.pp_release_id = r.rel_id
+            JOIN artist a ON r.release_artist_id = a.artist_id
+            WHERE 1=1
+        """
         params = []
 
         if release_id:
-            query += " AND pp_release_id = %s"
+            query += " AND pp.pp_release_id = %s"
             params.append(release_id)
 
         cursor.execute(query, params)
@@ -50,7 +56,14 @@ def get_payout_profile(payout_id):
         current_app.logger.info(f"GET /payoutProfiles/{payout_id}")
 
         cursor.execute(
-            "SELECT * FROM payoutProfiles WHERE payout_id = %s", (payout_id,)
+            """
+            SELECT pp.*, r.title AS release_title, a.stage_name AS artist_name
+            FROM payoutProfiles pp
+            JOIN `release` r ON pp.pp_release_id = r.rel_id
+            JOIN artist a ON r.release_artist_id = a.artist_id
+            WHERE pp.payout_id = %s
+            """,
+            (payout_id,),
         )
         profile = cursor.fetchone()
 
@@ -79,7 +92,14 @@ def get_payout_profiles_by_release(release_id):
             return jsonify({"error": "Release not found"}), 404
 
         cursor.execute(
-            "SELECT * FROM payoutProfiles WHERE pp_release_id = %s", (release_id,)
+            """
+            SELECT pp.*, r.title AS release_title, a.stage_name AS artist_name
+            FROM payoutProfiles pp
+            JOIN `release` r ON pp.pp_release_id = r.rel_id
+            JOIN artist a ON r.release_artist_id = a.artist_id
+            WHERE pp.pp_release_id = %s
+            """,
+            (release_id,),
         )
         profiles = [_serialize(p) for p in cursor.fetchall()]
 
