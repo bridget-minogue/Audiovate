@@ -33985,3 +33985,72 @@ INSERT INTO payoutProfiles (payout_id, collab_email, role, split_percentage, pp_
 VALUES (28, 'ella.writes@example.com', 'Songwriter', 15.00, 24);
 INSERT INTO payoutProfiles (payout_id, collab_email, role, split_percentage, pp_release_id)
 VALUES (29, 'mx.features@example.com', 'Featured Artist', 10.00, 24);
+
+-- ============================================================
+-- REALISTIC FINANCIAL REPORTS (replaces placeholder data)
+-- Monthly breakdowns + quarterly summaries per release
+-- ============================================================
+
+DELETE FROM financialReport;
+ALTER TABLE financialReport AUTO_INCREMENT = 1;
+
+-- ── Release 20 (Album, Released 2026-01-02) ───────────────
+-- Full Q1 coverage: 3 monthly + 1 quarterly summary
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (1,  '2026-01-02 00:00:00', '2026-01-31 23:59:59', 20); -- Jan (partial month)
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (2,  '2026-02-01 00:00:00', '2026-02-28 23:59:59', 20); -- Feb
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (3,  '2026-03-01 00:00:00', '2026-03-31 23:59:59', 20); -- Mar
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (4,  '2026-01-02 00:00:00', '2026-03-31 23:59:59', 20); -- Q1 2026 summary
+
+-- ── Release 24 "After Hours (Deluxe Edition)" (NOVA, Released 2026-01-15) ─
+-- Marcus's flagship album — monthly + quarterly
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (5,  '2026-01-15 00:00:00', '2026-01-31 23:59:59', 24); -- Jan (partial)
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (6,  '2026-02-01 00:00:00', '2026-02-28 23:59:59', 24); -- Feb
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (7,  '2026-03-01 00:00:00', '2026-03-31 23:59:59', 24); -- Mar
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (8,  '2026-01-15 00:00:00', '2026-03-31 23:59:59', 24); -- Q1 2026 summary
+
+-- ── Release 8 (Album, Released 2026-02-02) ───────────────
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (9,  '2026-02-02 00:00:00', '2026-02-28 23:59:59', 8);  -- Feb (partial)
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (10, '2026-03-01 00:00:00', '2026-03-31 23:59:59', 8);  -- Mar
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (11, '2026-02-02 00:00:00', '2026-03-31 23:59:59', 8);  -- Q1 2026 summary
+
+-- ── Release 13 (Album, Released 2026-02-21) ──────────────
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (12, '2026-02-21 00:00:00', '2026-02-28 23:59:59', 13); -- Feb (partial)
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (13, '2026-03-01 00:00:00', '2026-03-31 23:59:59', 13); -- Mar
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (14, '2026-02-21 00:00:00', '2026-03-31 23:59:59', 13); -- Q1 2026 summary
+
+-- ── Release 21 "Neon Dreams" (NOVA, Released 2026-03-01) ─
+-- Marcus's newest released album — March monthly + Q1 summary
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (15, '2026-03-01 00:00:00', '2026-03-31 23:59:59', 21); -- Mar
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (16, '2026-03-01 00:00:00', '2026-03-31 23:59:59', 21); -- Q1 2026 summary (same as Mar since released Mar 1)
+
+-- ── Approved releases — Q1 2026 preliminary reports ──────
+-- These are in the pipeline; reports generated for royalty projection
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (17, '2026-01-01 00:00:00', '2026-03-31 23:59:59', 7);  -- Q1 2026, Release 7 (Approved Album)
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (18, '2026-01-01 00:00:00', '2026-03-31 23:59:59', 12); -- Q1 2026, Release 12 (Approved Album)
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (19, '2026-01-01 00:00:00', '2026-03-31 23:59:59', 17); -- Q1 2026, Release 17 (Approved EP)
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (20, '2026-01-01 00:00:00', '2026-03-31 23:59:59', 19); -- Q1 2026, Release 19 (Approved Album)
+
+-- ── Release 22 "Street Gospel" (Kali J, Approved 2026-04-20) ─
+-- Not yet released — projection report for upcoming quarter
+INSERT INTO financialReport (freport_id, start_period, end_period, fr_release_id)
+VALUES (21, '2026-04-01 00:00:00', '2026-06-30 23:59:59', 22); -- Q2 2026 projection
