@@ -90,6 +90,19 @@ def release_overview_nav():
         "pages/33_Release_Overview.py", label="Release Overview", icon="📀"
     )
 
+# ---- Role: data_analyst -----------------------------------------------------
+
+def data_analyst_home_nav():
+    st.sidebar.page_link("pages/10_Data_Analyst_Home.py", label="Analyst Dashboard", icon="📊")
+
+def data_analyst_platform_nav():
+    st.sidebar.page_link("pages/11_Platform_Performance.py", label="Platform Metrics", icon="💻")
+
+def data_analyst_locations_nav():
+    st.sidebar.page_link("pages/12_Listener_Locations.py", label="Listener Locations", icon="🗺️")
+
+def data_analyst_engagement_nav():
+    st.sidebar.page_link("pages/13_Track_Engagement.py", label="Track Engagement", icon="⏭️")
 
 # ---- Role: administrator ----------------------------------------------------
 
@@ -146,6 +159,13 @@ def SideBarLinks(show_home=False):
         if st.session_state["role"] == "administrator":
             admin_home_nav()
             ml_model_mgmt_nav()
+
+        
+        if st.session_state["role"] == "data_analyst":
+            data_analyst_home_nav()
+            data_analyst_platform_nav()
+            data_analyst_locations_nav()
+            data_analyst_engagement_nav()
 
     # About link appears at the bottom for all roles
     about_page_nav()

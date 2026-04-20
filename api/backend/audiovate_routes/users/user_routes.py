@@ -15,9 +15,9 @@ def get_roster_performance(user_id):
         start_date = request.args.get('start_date', '2000-01-01')
         end_date = request.args.get('end_date', '2099-12-31')
 
-        # Note: Fixed the 'rel.distribution_status' to match 'rel.status'
         query = """
             SELECT 
+                a.artist_id,
                 a.stage_name,
                 s.number_of_listeners,
                 s.number_of_streams,
