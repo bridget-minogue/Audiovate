@@ -33897,3 +33897,91 @@ INSERT INTO streamEvent (event_id, time_stamp, is_skipped, rev_generated, event_
 INSERT INTO streamEvent (event_id, time_stamp, is_skipped, rev_generated, event_listener_id, event_track_id, event_platform_id, event_location_id) VALUES (33048, '2025-07-07 23:52:13', 0, 0.01, 138, 41, 2, 8);
 INSERT INTO streamEvent (event_id, time_stamp, is_skipped, rev_generated, event_listener_id, event_track_id, event_platform_id, event_location_id) VALUES (33049, '2025-12-23 15:47:23', 1, 0.01, 136, 47, 2, 8);
 INSERT INTO streamEvent (event_id, time_stamp, is_skipped, rev_generated, event_listener_id, event_track_id, event_platform_id, event_location_id) VALUES (33050, '2026-03-14 03:56:17', 0, 0.004, 125, 36, 1, 7);
+
+-- ============================================================
+-- MARCUS (LABEL HEAD) REALISTIC MOCK DATA
+-- ============================================================
+
+-- Marcus Johnson — Label Head user
+INSERT INTO `user` (user_id, first_name, last_name, role, email)
+VALUES (26, 'Marcus', 'Johnson', 'Label Head', 'marcus.johnson@audiovate.io');
+
+-- Marcus manages NOVA (1), Kali J (3), and Alicia A. (5)
+INSERT INTO manages (manages_user_id, manages_artist_id) VALUES (26, 1);
+INSERT INTO manages (manages_user_id, manages_artist_id) VALUES (26, 3);
+INSERT INTO manages (manages_user_id, manages_artist_id) VALUES (26, 5);
+
+-- ── Releases ──────────────────────────────────────────────
+-- Release 21: "Neon Dreams" — NOVA Album — Released (fully complete, reference case)
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id)
+VALUES (21, 'Neon Dreams', 'Album', 'Released', '2026-03-01 00:00:00', 1);
+
+-- Release 22: "Street Gospel" — Kali J EP — Approved (artwork pending, credits missing)
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id)
+VALUES (22, 'Street Gospel', 'EP', 'Approved', '2026-04-20 00:00:00', 3);
+
+-- Release 23: "Quiet Storm" — Alicia A. Single — Processing (only audio uploaded, no payout setup — urgent nudge)
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id)
+VALUES (23, 'Quiet Storm', 'Single', 'Processing', '2026-04-18 00:00:00', 5);
+
+-- Release 24: "After Hours (Deluxe Edition)" — NOVA Album — Released (complete, complex split)
+INSERT INTO `release` (rel_id, title, type, status, release_date, release_artist_id)
+VALUES (24, 'After Hours (Deluxe Edition)', 'Album', 'Released', '2026-01-15 00:00:00', 1);
+
+-- ── Assets ────────────────────────────────────────────────
+-- Release 21 "Neon Dreams" — all three asset types complete
+INSERT INTO asset (asset_id, file_url, file_type, upload_status, asset_release_id)
+VALUES (40, 'https://cdn.audiovate.io/audio/neon-dreams-full.wav', 'Audio', 1, 21);
+INSERT INTO asset (asset_id, file_url, file_type, upload_status, asset_release_id)
+VALUES (41, 'https://cdn.audiovate.io/artwork/neon-dreams-cover.png', 'Artwork', 1, 21);
+INSERT INTO asset (asset_id, file_url, file_type, upload_status, asset_release_id)
+VALUES (42, 'https://cdn.audiovate.io/credits/neon-dreams-credits.pdf', 'Credits', 1, 21);
+
+-- Release 22 "Street Gospel" — audio done, artwork pending review, credits never uploaded
+INSERT INTO asset (asset_id, file_url, file_type, upload_status, asset_release_id)
+VALUES (43, 'https://cdn.audiovate.io/audio/street-gospel-master.wav', 'Audio', 1, 22);
+INSERT INTO asset (asset_id, file_url, file_type, upload_status, asset_release_id)
+VALUES (44, 'https://cdn.audiovate.io/artwork/street-gospel-cover-draft.png', 'Artwork', 0, 22);
+-- No Credits asset for release 22 — Kali J never submitted them
+
+-- Release 23 "Quiet Storm" — only the audio file uploaded, nothing else
+INSERT INTO asset (asset_id, file_url, file_type, upload_status, asset_release_id)
+VALUES (45, 'https://cdn.audiovate.io/audio/quiet-storm-rough.wav', 'Audio', 1, 23);
+-- No Artwork, no Credits — Alicia A. needs a nudge
+
+-- Release 24 "After Hours (Deluxe Edition)" — fully complete
+INSERT INTO asset (asset_id, file_url, file_type, upload_status, asset_release_id)
+VALUES (46, 'https://cdn.audiovate.io/audio/after-hours-deluxe.wav', 'Audio', 1, 24);
+INSERT INTO asset (asset_id, file_url, file_type, upload_status, asset_release_id)
+VALUES (47, 'https://cdn.audiovate.io/artwork/after-hours-deluxe-cover.png', 'Artwork', 1, 24);
+INSERT INTO asset (asset_id, file_url, file_type, upload_status, asset_release_id)
+VALUES (48, 'https://cdn.audiovate.io/credits/after-hours-deluxe-credits.pdf', 'Credits', 1, 24);
+
+-- ── Payout Profiles ───────────────────────────────────────
+-- Release 21 "Neon Dreams" — clean 3-way split totalling 100%
+INSERT INTO payoutProfiles (payout_id, collab_email, role, split_percentage, pp_release_id)
+VALUES (21, 'nova.main@audiovate.io', 'Lead Artist', 60.00, 21);
+INSERT INTO payoutProfiles (payout_id, collab_email, role, split_percentage, pp_release_id)
+VALUES (22, 'beats.prod.yt@gmail.com', 'Producer', 25.00, 21);
+INSERT INTO payoutProfiles (payout_id, collab_email, role, split_percentage, pp_release_id)
+VALUES (23, 'ella.writes@example.com', 'Songwriter', 15.00, 21);
+
+-- Release 22 "Street Gospel" — only 2 collaborators, no songwriter credited despite lyrics
+-- Marcus needs to chase Kali J to add the songwriter before approval
+INSERT INTO payoutProfiles (payout_id, collab_email, role, split_percentage, pp_release_id)
+VALUES (24, 'kalij.official@gmail.com', 'Lead Artist', 70.00, 22);
+INSERT INTO payoutProfiles (payout_id, collab_email, role, split_percentage, pp_release_id)
+VALUES (25, 'trap.jd.beats@example.com', 'Producer', 30.00, 22);
+
+-- Release 23 "Quiet Storm" — NO payout profiles at all
+-- Alicia A. has not set up royalty splits — urgent for Marcus to follow up
+
+-- Release 24 "After Hours (Deluxe Edition)" — complex 4-way split totalling 100%
+INSERT INTO payoutProfiles (payout_id, collab_email, role, split_percentage, pp_release_id)
+VALUES (26, 'nova.main@audiovate.io', 'Lead Artist', 55.00, 24);
+INSERT INTO payoutProfiles (payout_id, collab_email, role, split_percentage, pp_release_id)
+VALUES (27, 'beats.prod.yt@gmail.com', 'Producer', 20.00, 24);
+INSERT INTO payoutProfiles (payout_id, collab_email, role, split_percentage, pp_release_id)
+VALUES (28, 'ella.writes@example.com', 'Songwriter', 15.00, 24);
+INSERT INTO payoutProfiles (payout_id, collab_email, role, split_percentage, pp_release_id)
+VALUES (29, 'mx.features@example.com', 'Featured Artist', 10.00, 24);
