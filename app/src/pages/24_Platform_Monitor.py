@@ -18,7 +18,7 @@ st.subheader("Releases Currently Processing")
 st.caption("Releases in 'Processing' status that may need attention.")
 
 try:
-    resp = requests.get(f"{BASE}/releases/processing")
+    resp = requests.get(f"{BASE}/releases", params={"status": "Processing"})
     if resp.status_code == 200:
         releases = resp.json()
         if releases:
@@ -37,7 +37,7 @@ st.subheader("Most Active Artists")
 st.caption("Artists ranked by total number of releases submitted.")
 
 try:
-    resp = requests.get(f"{BASE}/release/rankings")
+    resp = requests.get(f"{BASE}/releases/rankings")
     if resp.status_code == 200:
         rankings = resp.json()
         if rankings:
