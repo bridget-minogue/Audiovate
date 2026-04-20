@@ -25,11 +25,15 @@ try:
         data = response.json()
         if data:
             df = pd.DataFrame(data)
-            
+
             # Ensure coordinates are numeric for the map
             df['latitude'] = pd.to_numeric(df['latitude'])
             df['longitude'] = pd.to_numeric(df['longitude'])
-            
+
+            # Scale listener count to a fixed pixel size (5–40px range)
+            max_listeners = df['total_listeners'].max()
+            df['radius_px'] = (df['total_listeners'] / max_listeners * 35 + 5).astype(int)
+
             st.write("### Geographic Listener Distribution")
             st.write("The map below shows where this artist's listeners are concentrated. Larger circles indicate a higher number of unique listeners.")
 
@@ -42,8 +46,9 @@ try:
                 "ScatterplotLayer",
                 data=df,
                 get_position=["longitude", "latitude"],
-                get_color=[200, 30, 0, 160], # Audiovate Red (approx)
-                get_radius="total_listeners * 100", # Scale radius for visibility
+                get_color=[200, 30, 0, 160],
+                get_radius="radius_px",
+                radius_units="pixels",
                 pickable=True,
                 auto_highlight=True
             )
@@ -52,13 +57,13 @@ try:
             view_state = pdk.ViewState(
                 latitude=center_lat,
                 longitude=center_lon,
-                zoom=3,
+                zoom=2,
                 pitch=0,
             )
 
             # Render the map
             st.pydeck_chart(pdk.Deck(
-                map_style="mapbox://styles/mapbox/light-v9",
+                map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
                 layers=[layer],
                 initial_view_state=view_state,
                 tooltip={"html": "<b>City:</b> {city}, {country} <br/> <b>Listeners:</b> {total_listeners}"}
