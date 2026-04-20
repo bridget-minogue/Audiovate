@@ -33963,8 +33963,7 @@ INSERT INTO streamEvent (event_id, time_stamp, is_skipped, rev_generated, event_
 -- ============================================================
 
 -- Marcus Johnson — Label Head user
-INSERT INTO `user` (user_id, first_name, last_name, role, email)
-VALUES (26, 'Marcus', 'Johnson', 'Label Head', 'marcus.johnson@audiovate.io');
+
 
 -- Marcus manages NOVA (1), Kali J (3), and Alicia A. (5)
 INSERT INTO manages (manages_user_id, manages_artist_id) VALUES (26, 1);
