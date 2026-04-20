@@ -84,7 +84,7 @@ If you are not familiar with web app development, this code base might be confus
 1. For running the testing containers (for your team's repo):
    1. `docker compose up -d` to start all the containers in the background
    1. `docker compose down` to shutdown and delete the containers
-   1. `docker compose up db -d` only start the database container (replace db with api or app for the other two services as needed)
+   1. ` db -d` only start the database container (replace db with api or app for the other two services as needed)
    1. `docker compose stop` to "turn off" the containers but not delete them.
 
 **Note:** You can also use the Docker Desktop GUI to start and stop the containers after the first initial run.
