@@ -13,7 +13,7 @@ def get_artists():
     try:
         query = """
             SELECT u.first_name, u.last_name, a.* FROM artist a
-            INNER JOIN user u ON a.artist_id = u.user_id
+            INNER JOIN user u ON a.artist_user_id = u.user_id
         """
         cursor.execute(query)
         artists = cursor.fetchall()

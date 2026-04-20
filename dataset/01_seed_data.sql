@@ -33962,13 +33962,7 @@ INSERT INTO streamEvent (event_id, time_stamp, is_skipped, rev_generated, event_
 -- MARCUS (LABEL HEAD) REALISTIC MOCK DATA
 -- ============================================================
 
--- Marcus Johnson — Label Head user
-
-
--- Marcus manages NOVA (1), Kali J (3), and Alicia A. (5)
-INSERT INTO manages (manages_user_id, manages_artist_id) VALUES (26, 1);
-INSERT INTO manages (manages_user_id, manages_artist_id) VALUES (26, 3);
-INSERT INTO manages (manages_user_id, manages_artist_id) VALUES (26, 5);
+-- Marcus Johnson (user_id=66) is added in the correction block below.
 
 -- ── Releases ──────────────────────────────────────────────
 -- Release 21: "Neon Dreams" — NOVA Album — Released (fully complete, reference case)
