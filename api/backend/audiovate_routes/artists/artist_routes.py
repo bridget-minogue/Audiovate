@@ -29,11 +29,15 @@ def get_artist(artist_id):
     try:
         query = """
             SELECT
-            a. *,
-            u.first_name AS legal_first_name,
-            u.last_name AS legal_last_name
+            u.first_name, 
+            u.last_name, 
+            a.artist_id, 
+            a.stage_name, 
+            a.bio, 
+            a.profile_pic, 
+            a.instagram
             FROM artist a
-            JOIN user u ON a.user_id = u.id
+            JOIN user u ON a.artist_user_id = u.user_id
             WHERE a.artist_id = %s
         """
         cursor.execute(query, (artist_id,))
@@ -43,11 +47,12 @@ def get_artist(artist_id):
             return jsonify({"error": "artist not found"}), 404
 
         # Reuse the same cursor for the follow-up queries
-        cursor.execute("SELECT * FROM release WHERE artist_id = %s", (artist_id,))
+        cursor.execute("SELECT * FROM `release` WHERE release_artist_id = %s", (artist_id,))
         artist["releases"] = cursor.fetchall()
 
         return jsonify(artist), 200
     except Error as e:
+        print(f"ERROR in GET artist: {e}")
         return jsonify({"error": str(e)}), 500
     finally:
         cursor.close()
@@ -72,7 +77,8 @@ def update_tax_status(artist_id):
 
 @artists.route("/<int:artist_id>", methods=["PUT"])
 def update_artist_profile(artist_id):
-    cursor = get_db().cursor(dictionary=True)
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
     try:
         data = request.get_json()
         cursor.execute("SELECT artist_id FROM artist WHERE artist_id = %s", (artist_id,))
@@ -89,7 +95,7 @@ def update_artist_profile(artist_id):
         params.append(artist_id)
         query = f"UPDATE artist SET {', '.join(update_fields)} WHERE artist_id = %s"
         cursor.execute(query, params)
-        get_db().commit()
+        db.commit()
 
         return jsonify({"message": "Artist profile updated successfully"}), 200
     except Error as e:
@@ -102,16 +108,16 @@ def get_monthly_stats(artist_id):
     cursor = get_db().cursor(dictionary=True)
     try:
         query = """
-            SELECT
-            t.title,
-            MONTHNAME(s.timestamp) AS month,
-            COUNT(s.event_id) AS total_streams
-            FROM streamEvent s
-            JOIN track t ON s.event_track_id = t.track_id
-            WHERE t.track_artist_id = %s
-            GROUP BY t.track_id, month
-            ORDER BY s.timestamp DESC;
-            """
+        SELECT
+        t.title,
+        MONTHNAME(s.time_stamp) AS month,
+        COUNT(s.event_id) AS total_streams
+        FROM streamEvent s
+        JOIN track t ON s.event_track_id = t.track_id
+        WHERE t.track_artist_id = %s
+        GROUP BY t.track_id, month
+        ORDER BY MAX(s.time_stamp) DESC;
+"""
         cursor.execute(query, (artist_id,))
         stats = cursor.fetchall()
         return jsonify(stats), 200
@@ -120,7 +126,7 @@ def get_monthly_stats(artist_id):
     finally:
         cursor.close()
 
-@artists.route("/<int:artist_id>/platforms", methods=["GET"])
+@artists.route("/<int:artist_id>/manages-platforms", methods=["GET"])
 def get_artist_platforms(artist_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -268,6 +274,34 @@ def get_artist_tracks(artist_id):
         return jsonify(tracks), 200
     except Error as e:
         current_app.logger.error(f"Database error in get_artist_tracks: {e}")
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+
+
+#For artist
+@artists.route("/<int:artist_id>/platforms", methods=["GET"])
+def get_artist_platforms_single(artist_id):
+    cursor = get_db().cursor(dictionary=True)
+    try:
+        
+        query = """
+            SELECT 
+                p.name AS platform_name,
+                COUNT(se.event_id) AS total_streams,
+                SUM(se.rev_generated) AS total_revenue
+            FROM platform p
+            JOIN streamEvent se ON p.platform_id = se.event_platform_id
+            JOIN track t ON se.event_track_id = t.track_id
+            -- Join directly to artist, no 'manages' table needed
+            WHERE t.track_artist_id = %s 
+            GROUP BY p.platform_id, p.name
+            ORDER BY total_streams DESC;
+        """
+        cursor.execute(query, (artist_id,))
+        platforms = cursor.fetchall()
+        return jsonify(platforms), 200
+    except Exception as e:
         return jsonify({"error": str(e)}), 500
     finally:
         cursor.close()

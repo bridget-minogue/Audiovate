@@ -13,10 +13,10 @@ def create_release(artist_id):
     try:
         data = request.get_json()
         release_query = """
-            INSERT INTO release (artist_id, title, description, release_date)
-            VALUES (%s, %s, %s, %s)
+            INSERT INTO `release` (release_artist_id, title, type, release_date, status)
+            VALUES (%s, %s, %s, %s, %s)
         """
-        release_values = (data["title"], data["type"], 'Processing', data["release_date"], artist_id)
+        release_values = (artist_id, data["title"], data["type"], data["release_date"], 'Processing')
         cursor.execute(release_query, release_values)
         
         new_release_id = cursor.lastrowid
@@ -37,6 +37,8 @@ def create_release(artist_id):
             asset_values = (asset["file_url"], asset["file_type"], 'Processing', new_release_id)
             cursor.execute(assert_query, asset_values)
 
+        get_db().commit()
+
         return jsonify({"message": "Release created successfully", "release_id": new_release_id}), 201
     except Error as e:
         return jsonify({"error": str(e)}), 500
@@ -50,9 +52,9 @@ def get_all_releases():
 
     try:
         if status_filter:
-            cursor.execute("SELECT * FROM release WHERE status = %s", (status_filter,))
+            cursor.execute("SELECT * FROM `release` WHERE status = %s", (status_filter,))
         else:
-            cursor.execute("SELECT * FROM release")
+            cursor.execute("SELECT * FROM `release`")
 
         releases = cursor.fetchall()
         return jsonify(releases), 200
@@ -100,15 +102,31 @@ def get_release_rankings():
 
 @releases.route("/releases/<int:release_id>", methods=["DELETE"])
 def delete_release(release_id):
-    cursor = get_db().cursor(dictionary=True)
+    db = get_db()
+    cursor = db.cursor()
     try:
-        query = """
-            DELETE FROM `release`
-            WHERE rel_id = %s
-        """
-        cursor.execute(query, (release_id,))
-        get_db().commit()
-        return jsonify({"message": "Release deleted successfully"}), 200
+        cursor.execute("SELECT track_id FROM track WHERE track_release_id = %s", (release_id,))
+        tracks = cursor.fetchall()
+        track_ids = [t[0] if isinstance(t, tuple) else t['track_id'] for t in tracks]
+
+        if track_ids:
+        # 2. Delete Stream Events for these tracks
+            format_strings = ','.join(['%s'] * len(track_ids))
+            cursor.execute(f"DELETE FROM streamEvent WHERE event_track_id IN ({format_strings})", tuple(track_ids))
+
+            # 3. Delete Tracks
+            cursor.execute("DELETE FROM track WHERE track_release_id = %s", (release_id,))
+
+            # 4. Delete Payout Profiles
+            cursor.execute("DELETE FROM payoutProfiles WHERE pp_release_id = %s", (release_id,))
+        
+            # 5. Delete Assets
+            cursor.execute("DELETE FROM asset WHERE asset_release_id = %s", (release_id,))
+
+            # 6. delete the Release
+            cursor.execute("DELETE FROM `release` WHERE rel_id = %s", (release_id,))
+            db.commit()
+            return jsonify({"message": "Release deleted successfully"}), 200
     except Error as e:
         return jsonify({"error": str(e)}), 500
     finally:
