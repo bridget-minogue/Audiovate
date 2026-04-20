@@ -50,7 +50,7 @@ else:
             c3.write(f"Date: {r.get('release_date', 'TBD')}")
             
             if c4.button("Edit", key=f"up_{r['rel_id']}"):
-                st.session_state['edit_release_id'] = r['rel_id']
+                st.session_state['editing_release'] = r
                 st.switch_page("pages/04_Edit_Release.py")
 st.write("")
 
@@ -64,5 +64,5 @@ if not recent:
             rc2.write(f"Released on: {r['release_date']}")
             
             if rc3.button("Edit", key=f"rec_{r['rel_id']}"):
-                st.session_state['edit_release_id'] = r['rel_id']
+                st.session_state['editing_release'] = r
                 st.switch_page("pages/04_Edit_Release.py")

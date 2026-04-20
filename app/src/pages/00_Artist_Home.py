@@ -24,10 +24,10 @@ profile = get_profile()
 
 if profile:
 
-    if st.button("Go to Library", use_container_width=True):
+    if st.button("Go to Library", type="primary", use_container_width=True):
         st.switch_page("pages/01_Artist_Library.py")
 
-    if st.button("View My Stats", use_container_width=True):
+    if st.button("View My Stats", type="primary", use_container_width=True):
         st.switch_page("pages/02_Artist_Stats.py")
     col1, col2 = st.columns([1, 2])
     with col1:

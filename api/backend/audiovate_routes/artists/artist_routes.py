@@ -108,16 +108,16 @@ def get_monthly_stats(artist_id):
     cursor = get_db().cursor(dictionary=True)
     try:
         query = """
-            SELECT
-            t.title,
-            MONTHNAME(s.timestamp) AS month,
-            COUNT(s.event_id) AS total_streams
-            FROM streamEvent s
-            JOIN track t ON s.event_track_id = t.track_id
-            WHERE t.track_artist_id = %s
-            GROUP BY t.track_id, month
-            ORDER BY s.timestamp DESC;
-            """
+        SELECT
+        t.title,
+        MONTHNAME(s.time_stamp) AS month,
+        COUNT(s.event_id) AS total_streams
+        FROM streamEvent s
+        JOIN track t ON s.event_track_id = t.track_id
+        WHERE t.track_artist_id = %s
+        GROUP BY t.track_id, month
+        ORDER BY MAX(s.time_stamp) DESC;
+"""
         cursor.execute(query, (artist_id,))
         stats = cursor.fetchall()
         return jsonify(stats), 200
@@ -126,7 +126,7 @@ def get_monthly_stats(artist_id):
     finally:
         cursor.close()
 
-@artists.route("/<int:artist_id>/platforms", methods=["GET"])
+@artists.route("/<int:artist_id>/manages-platforms", methods=["GET"])
 def get_artist_platforms(artist_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -274,6 +274,34 @@ def get_artist_tracks(artist_id):
         return jsonify(tracks), 200
     except Error as e:
         current_app.logger.error(f"Database error in get_artist_tracks: {e}")
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+
+
+#For artist
+@artists.route("/<int:artist_id>/platforms", methods=["GET"])
+def get_artist_platforms_single(artist_id):
+    cursor = get_db().cursor(dictionary=True)
+    try:
+        
+        query = """
+            SELECT 
+                p.name AS platform_name,
+                COUNT(se.event_id) AS total_streams,
+                SUM(se.rev_generated) AS total_revenue
+            FROM platform p
+            JOIN streamEvent se ON p.platform_id = se.event_platform_id
+            JOIN track t ON se.event_track_id = t.track_id
+            -- Join directly to artist, no 'manages' table needed
+            WHERE t.track_artist_id = %s 
+            GROUP BY p.platform_id, p.name
+            ORDER BY total_streams DESC;
+        """
+        cursor.execute(query, (artist_id,))
+        platforms = cursor.fetchall()
+        return jsonify(platforms), 200
+    except Exception as e:
         return jsonify({"error": str(e)}), 500
     finally:
         cursor.close()
