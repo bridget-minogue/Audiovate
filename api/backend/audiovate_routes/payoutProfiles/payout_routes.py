@@ -6,6 +6,13 @@ from mysql.connector import Error
 payout_profiles = Blueprint("payout_profiles", __name__)
 
 
+def _serialize(profile):
+    """Cast Decimal fields to float so jsonify always returns a number."""
+    if profile and "split_percentage" in profile:
+        profile["split_percentage"] = float(profile["split_percentage"])
+    return profile
+
+
 # GET /payoutProfiles - Get all payout profiles; filter by release_id query param [Marcus-2]
 # Example: /payoutProfiles?release_id=3
 @payout_profiles.route("/", methods=["GET"])
@@ -24,7 +31,7 @@ def get_all_payout_profiles():
             params.append(release_id)
 
         cursor.execute(query, params)
-        profiles = cursor.fetchall()
+        profiles = [_serialize(p) for p in cursor.fetchall()]
 
         current_app.logger.info(f"Retrieved {len(profiles)} payout profiles")
         return jsonify(profiles), 200
@@ -50,7 +57,7 @@ def get_payout_profile(payout_id):
         if not profile:
             return jsonify({"error": "Payout profile not found"}), 404
 
-        return jsonify(profile), 200
+        return jsonify(_serialize(profile)), 200
     except Error as e:
         current_app.logger.error(f"Database error in get_payout_profile: {e}")
         return jsonify({"error": str(e)}), 500
@@ -74,7 +81,7 @@ def get_payout_profiles_by_release(release_id):
         cursor.execute(
             "SELECT * FROM payoutProfiles WHERE pp_release_id = %s", (release_id,)
         )
-        profiles = cursor.fetchall()
+        profiles = [_serialize(p) for p in cursor.fetchall()]
 
         return jsonify(profiles), 200
     except Error as e:

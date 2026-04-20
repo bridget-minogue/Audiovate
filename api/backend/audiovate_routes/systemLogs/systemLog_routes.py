@@ -85,6 +85,33 @@ def get_log(log_id):
         cursor.close()
 
 
+# GET /system_logs/user/<user_id> - Get all system logs for a specific user
+@system_logs.route("/system_logs/user/<int:user_id>", methods=["GET"])
+def get_logs_by_user(user_id):
+    cursor = get_db().cursor(dictionary=True)
+    try:
+        current_app.logger.info(f"GET /system_logs/user/{user_id}")
+
+        cursor.execute(
+            """
+            SELECT log_id, status, description, timestamp, log_user_id, log_admin_id
+            FROM systemLog
+            WHERE log_user_id = %s
+            ORDER BY timestamp DESC
+            """,
+            (user_id,),
+        )
+        logs = cursor.fetchall()
+
+        current_app.logger.info(f"Retrieved {len(logs)} logs for user {user_id}")
+        return jsonify(logs), 200
+    except Error as e:
+        current_app.logger.error(f"Database error in get_logs_by_user: {e}")
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+
+
 # PUT /system-logs/<log_id> - Update status or description of a system log [Rigby-1]
 # Accepts any subset of: status, description, log_admin_id
 @system_logs.route("/system_logs/<int:log_id>", methods=["PUT"])

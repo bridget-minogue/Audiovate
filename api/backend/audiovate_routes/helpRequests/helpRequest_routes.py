@@ -32,7 +32,7 @@ def get_all_requests():
 
 
 # GET /help-requests - Get all unresolved help requests
-@help_requests.route("help_requests/status", methods=["GET"])
+@help_requests.route("/help_requests/status", methods=["GET"])
 def get_open_requests():
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -85,8 +85,8 @@ def get_request(request_id):
         cursor.close()
 
 
-# GET /help-requests - Get help request counts by admin
-@help_requests.route("/help_requests", methods=["GET"])
+# GET /help_requests/by-admin - Get help request counts by admin [Rigby-4]
+@help_requests.route("/help_requests/by-admin", methods=["GET"])
 def get_requests_by_admin():
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -111,8 +111,8 @@ def get_requests_by_admin():
         cursor.close()
 
 
-# GET /help-requests - Get help request counts by user
-@help_requests.route("/help_requests", methods=["GET"])
+# GET /help_requests/by-user - Get help request counts by user [Rigby-6]
+@help_requests.route("/help_requests/by-user", methods=["GET"])
 def get_requests_by_user():
     cursor = get_db().cursor(dictionary=True)
     try:

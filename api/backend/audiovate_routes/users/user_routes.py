@@ -7,7 +7,7 @@ from mysql.connector import Error
 # Create a Blueprint for Users routes
 users = Blueprint("users", __name__)
 
-@users.route("/users/<int:user_id>/artists/performance", methods=["GET"])
+@users.route("/<int:user_id>/artists/performance", methods=["GET"])
 def get_roster_performance(user_id):
     cursor = get_db().cursor(dictionary=True)
     try:
@@ -51,7 +51,7 @@ def get_roster_performance(user_id):
     finally:
         cursor.close()
 
-@users.route("/users", methods=["GET"])
+@users.route("/", methods=["GET"])
 def get_all_users():
     cursor = get_db().cursor(dictionary=True)
     try:
