@@ -234,7 +234,7 @@ INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (22, 'Je
 INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (23, 'Thomas', 'Edwards', 'Admin', 'mbarnes@example.net');
 INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (24, 'Ryan', 'Ramirez', 'Label Head', 'upatterson@example.com');
 INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (25, 'James', 'Peters', 'Data Analyst', 'hduffy@example.com');
-INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (26, 'Monica', 'Guzman', 'User', 'mguzman@example.com');
+INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (26, 'Monica', 'Guzman', 'Label Head', 'mguzman@example.com');
 INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (27, 'Derek', 'Vance', 'Label Head', 'dvance99@example.net');
 INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (28, 'Elena', 'Rodriguez', 'Data Analyst', 'elena.rod@example.org');
 INSERT INTO `user` (user_id, first_name, last_name, role, email) VALUES (29, 'Marcus', 'Webb', 'Admin', 'mwebb_admin@example.net');
@@ -33961,8 +33961,6 @@ INSERT INTO streamEvent (event_id, time_stamp, is_skipped, rev_generated, event_
 -- ============================================================
 -- MARCUS (LABEL HEAD) REALISTIC MOCK DATA
 -- ============================================================
-
--- Marcus Johnson — Label Head user
 
 
 -- Marcus manages NOVA (1), Kali J (3), and Alicia A. (5)
