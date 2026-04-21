@@ -59,6 +59,44 @@ try:
             else:
                 st.success("No recent errors.")
 
+        # Single log lookup
+        st.divider()
+        st.subheader("Look Up Log by ID")
+        single_log_id = st.number_input("Log ID", min_value=1, step=1, key="single_log_lookup")
+        if st.button("Fetch Log", type="primary"):
+            try:
+                sr = requests.get(f"{BASE}/system_logs/{single_log_id}")
+                if sr.status_code == 200:
+                    log = sr.json()
+                    log["status"] = "✅ Success" if log["status"] == 1 else "❌ Error"
+                    st.dataframe(pd.DataFrame([log])[["log_id", "timestamp", "description", "log_user_id", "log_admin_id", "status"]], use_container_width=True, hide_index=True)
+                elif sr.status_code == 404:
+                    st.warning(f"No log found with ID {single_log_id}.")
+                else:
+                    st.error("Failed to fetch log.")
+            except requests.exceptions.RequestException as e:
+                st.error(f"Could not connect to API: {e}")
+
+        # Logs by user
+        st.divider()
+        st.subheader("Logs by User")
+        user_id_input = st.number_input("User ID", min_value=1, step=1, key="user_id_lookup")
+        if st.button("Fetch User Logs", type="primary"):
+            try:
+                ur = requests.get(f"{BASE}/system_logs/user/{user_id_input}")
+                if ur.status_code == 200:
+                    user_logs = ur.json()
+                    if user_logs:
+                        udf = pd.DataFrame(user_logs)
+                        udf["status"] = udf["status"].map({1: "✅ Success", 0: "❌ Error"})
+                        st.dataframe(udf[["log_id", "timestamp", "description", "log_admin_id", "status"]], use_container_width=True, hide_index=True)
+                    else:
+                        st.info(f"No logs found for user {user_id_input}.")
+                else:
+                    st.error("Failed to fetch logs for that user.")
+            except requests.exceptions.RequestException as e:
+                st.error(f"Could not connect to API: {e}")
+
         # Update log status
         st.divider()
         st.subheader("Update Log Status")

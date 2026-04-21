@@ -61,6 +61,12 @@ def release_overview_nav():
         "pages/33_Release_Overview.py", label="Release Overview", icon="📀"
     )
 
+
+def artist_leaderboard_nav():
+    st.sidebar.page_link(
+        "pages/34_Artist_Leaderboard.py", label="Artist Leaderboard", icon="🏆"
+    )
+
 # ---- Role: data_analyst -----------------------------------------------------
 
 def data_analyst_home_nav():
@@ -85,13 +91,13 @@ def system_admin_home_nav():
 
 def system_logs_nav():
     st.sidebar.page_link(
-        "pages/22_System_Logs.py", label="System Logs", icon="📋"
+        "pages/22_System_Logs.py", label="System Logs", icon="🚨"
     )
 
 
 def help_requests_nav():
     st.sidebar.page_link(
-        "pages/23_Help_Requests.py", label="Help Requests", icon="🎫"
+        "pages/23_Help_Requests.py", label="Help Requests", icon="🎟️"
     )
 
 
@@ -133,6 +139,7 @@ def SideBarLinks(show_home=False):
             royalty_splits_nav()
             asset_tracker_nav()
             release_overview_nav()
+            artist_leaderboard_nav()
 
         if st.session_state["role"] == "administrator":
             system_admin_home_nav()
