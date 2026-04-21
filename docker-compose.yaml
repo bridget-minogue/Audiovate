@@ -16,7 +16,7 @@ services:
     container_name: web-api
     hostname: web-api
     env_file:
-      - ./api/.env.audiovate
+    - ./api/.env.audiovate
     volumes: ["./api:/apicode"]
     environment:
       - WATCHPACK_POLLING=true
@@ -32,7 +32,7 @@ services:
     volumes:
       - "./dataset:/docker-entrypoint-initdb.d/:ro"
     ports:
-      - 3200:3306
+      - 3307:3306
 
 volumes:
   mysql_data:
