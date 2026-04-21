@@ -61,6 +61,12 @@ def release_overview_nav():
         "pages/33_Release_Overview.py", label="Release Overview", icon="📀"
     )
 
+
+def artist_leaderboard_nav():
+    st.sidebar.page_link(
+        "pages/34_Artist_Leaderboard.py", label="Artist Leaderboard", icon="🏆"
+    )
+
 # ---- Role: data_analyst -----------------------------------------------------
 
 def data_analyst_home_nav():
@@ -133,6 +139,7 @@ def SideBarLinks(show_home=False):
             royalty_splits_nav()
             asset_tracker_nav()
             release_overview_nav()
+            artist_leaderboard_nav()
 
         if st.session_state["role"] == "administrator":
             system_admin_home_nav()
