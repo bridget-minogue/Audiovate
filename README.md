@@ -4,6 +4,8 @@
 
 > Built for CS 3200 — Database Design, Spring 2026 @ Northeastern University
 
+LINK TO VIDEO: https://drive.google.com/file/d/1zAXf9tyG3cAch1Qj4h3u1d5yvpmqXo_h/view?usp=drive_link
+
 ---
 
 ## Team
