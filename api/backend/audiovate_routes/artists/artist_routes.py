@@ -7,6 +7,40 @@ from mysql.connector import Error
 # Create a Blueprint for Artist routes
 artists = Blueprint("artists", __name__)
 
+@artists.route("/leaderboard", methods=["GET"])
+def get_artist_leaderboard():
+    cursor = get_db().cursor(dictionary=True)
+    try:
+        current_app.logger.info("GET /artists/leaderboard")
+        limit = request.args.get("limit", 10, type=int)
+        query = """
+            SELECT
+                a.artist_id,
+                a.stage_name,
+                COUNT(DISTINCT r.rel_id)  AS release_count,
+                COUNT(se.event_id)        AS total_streams,
+                ROUND(SUM(COALESCE(se.rev_generated, 0)), 2) AS total_revenue
+            FROM artist a
+            LEFT JOIN track t  ON t.track_artist_id  = a.artist_id
+            LEFT JOIN streamEvent se ON se.event_track_id = t.track_id
+            LEFT JOIN `release` r ON r.release_artist_id = a.artist_id
+            GROUP BY a.artist_id, a.stage_name
+            ORDER BY total_revenue DESC
+            LIMIT %s
+        """
+        cursor.execute(query, (limit,))
+        rows = cursor.fetchall()
+        for i, row in enumerate(rows, 1):
+            row["rank"] = i
+            row["total_revenue"] = float(row["total_revenue"])
+        return jsonify(rows), 200
+    except Error as e:
+        current_app.logger.error(f"Database error in get_artist_leaderboard: {e}")
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+
+
 @artists.route("/", methods=["GET"])
 def get_artists():
     cursor = get_db().cursor(dictionary=True)
