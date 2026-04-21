@@ -49,3 +49,23 @@ try:
         st.error("Failed to fetch artist rankings.")
 except requests.exceptions.RequestException as e:
     st.error(f"Could not connect to API: {e}")
+
+st.divider()
+
+# Roster Status Overview
+st.subheader("Full Roster Status")
+st.caption("All releases across the platform with their current status and artist.")
+
+try:
+    resp = requests.get(f"{BASE}/releases/roster-status")
+    if resp.status_code == 200:
+        roster = resp.json()
+        if roster:
+            st.dataframe(pd.DataFrame(roster), use_container_width=True, hide_index=True)
+        else:
+            st.info("No roster data available.")
+    else:
+        st.error("Failed to fetch roster status.")
+except requests.exceptions.RequestException as e:
+    st.error(f"Could not connect to API: {e}")
+

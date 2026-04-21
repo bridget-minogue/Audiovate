@@ -85,13 +85,13 @@ def system_admin_home_nav():
 
 def system_logs_nav():
     st.sidebar.page_link(
-        "pages/22_System_Logs.py", label="System Logs", icon="📋"
+        "pages/22_System_Logs.py", label="System Logs", icon="🚨"
     )
 
 
 def help_requests_nav():
     st.sidebar.page_link(
-        "pages/23_Help_Requests.py", label="Help Requests", icon="🎫"
+        "pages/23_Help_Requests.py", label="Help Requests", icon="🎟️"
     )
 
 

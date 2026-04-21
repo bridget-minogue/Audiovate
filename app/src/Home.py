@@ -88,7 +88,7 @@ if admins:
     if st.button("Act as Admin", type="primary", use_container_width=True):
         data = admin_map[selected_admin]
         st.session_state['authenticated'] = True
-        st.session_state['role'] = 'admin'
+        st.session_state['role'] = 'administrator'
         st.session_state['admin_id'] = data['user_id']
         st.session_state['first_name'] = data['first_name']
         st.session_state['last_name'] = data['last_name']

@@ -44,6 +44,24 @@ try:
         else:
             st.info("No requests found.")
 
+        # Single request lookup
+        st.divider()
+        st.subheader("Look Up Request by ID")
+        single_req_id = st.number_input("Request ID", min_value=1, step=1, key="single_req_lookup")
+        if st.button("Fetch Request", type="primary"):
+            try:
+                sr = requests.get(f"{BASE}/help_requests/{single_req_id}")
+                if sr.status_code == 200:
+                    req = sr.json()
+                    req["status"] = "✅ Resolved" if req["status"] == 1 else "🔴 Unresolved"
+                    st.dataframe(pd.DataFrame([req])[["request_id", "submitted_user_id", "description", "status", "assigned_admin_id", "created_at"]], use_container_width=True, hide_index=True)
+                elif sr.status_code == 404:
+                    st.warning(f"No request found with ID {single_req_id}.")
+                else:
+                    st.error("Failed to fetch request.")
+            except requests.exceptions.RequestException as e:
+                st.error(f"Could not connect to API: {e}")
+
         # Update a request
         st.divider()
         st.subheader("Update Help Request")
@@ -67,6 +85,30 @@ try:
                 st.rerun()
             else:
                 st.error(f"Failed: {r.text}")
+
+        # Create a new help request
+        st.divider()
+        st.subheader("Create Help Request")
+        col1, col2 = st.columns(2)
+        with col1:
+            new_user_id = st.number_input("User ID", min_value=1, step=1, key="new_req_user")
+            new_admin_id = st.number_input("Assign Admin ID", min_value=1, step=1, key="new_req_admin")
+        with col2:
+            new_desc = st.text_area("Description")
+
+        if st.button("Submit Help Request", type="primary"):
+            if not new_desc:
+                st.warning("Description is required.")
+            else:
+                r = requests.post(
+                    f"{BASE}/help_requests",
+                    json={"submitted_user_id": new_user_id, "description": new_desc, "assigned_admin_id": new_admin_id},
+                )
+                if r.status_code == 201:
+                    st.success(f"Help request created. ID: {r.json().get('request_id')}")
+                    st.rerun()
+                else:
+                    st.error(f"Failed: {r.text}")
 
         # Analytics
         st.divider()
