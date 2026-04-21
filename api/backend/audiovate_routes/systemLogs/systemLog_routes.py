@@ -40,7 +40,7 @@ def get_error_logs():
 
         cursor.execute(
             """
-            SELECT log_id, timestamp, description, log_admin_id
+            SELECT log_id, status, description, timestamp, log_user_id, log_admin_id
             FROM systemLog
             WHERE status = 0
             ORDER BY timestamp DESC

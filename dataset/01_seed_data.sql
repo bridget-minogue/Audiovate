@@ -325,31 +325,31 @@ INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) V
 INSERT INTO artist (artist_id, stage_name, bio, tax_id_status, artist_user_id) VALUES (25, 'Timber & Twine', 'Bluegrass collective reviving traditional stomp-and-holler energy.', 0, 15);
 
 -- 5. systemLog
-INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (1, 1, 'Understand notice chance throughout pick have look.', 2, 1);
-INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (2, 0, 'First wind pick.', 6, 2);
-INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (3, 0, 'Trade forward some.', 4, 2);
-INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (4, 1, 'Chance sense trouble like.', 10, 1);
-INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (5, 1, 'Movement process guy option son network.', 16, 3);
-INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (6, 0, 'Technology point front answer grow term name.', 4, 3);
-INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (7, 0, 'Table dinner meet.', 15, 1);
-INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (8, 0, 'Small never something science focus something.', 8, 1);
-INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (9, 0, 'Wish require call policy night.', 23, 3);
-INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (10, 1, 'Mrs lot protect economy.', 7, 1);
-INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (11, 0, 'Particularly picture agency win try note season.', 21, 1);
-INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (12, 0, 'Production dark suffer.', 12, 2);
-INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (13, 0, 'From dinner huge police improve.', 12, 1);
-INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (14, 1, 'Accept hear arrive true.', 9, 3);
+INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (1, 1, 'User login successful.', 2, 1);
+INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (2, 0, 'Failed to process release upload: file format not supported.', 6, 2);
+INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (3, 0, 'Payout profile update failed: invalid bank routing number.', 4, 2);
+INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (4, 1, 'Royalty split recalculated successfully for release #42.', 10, 1);
+INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (5, 1, 'New artist profile created and approved.', 16, 3);
+INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (6, 0, 'Asset ingestion error: duplicate ISRC code detected on track upload.', 4, 3);
+INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (7, 0, 'Database connection timeout during release status update.', 15, 1);
+INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (8, 0, 'Stream reporting job failed: missing platform credentials.', 8, 1);
+INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (9, 0, 'User password reset email failed to send.', 23, 3);
+INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (10, 1, 'Release #17 moved to Published status.', 7, 1);
+INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (11, 0, 'Help request escalation failed: assigned admin not found.', 21, 1);
+INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (12, 0, 'Track metadata sync error: title exceeds character limit.', 12, 2);
+INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (13, 0, 'Scheduled royalty payout job timed out.', 12, 1);
+INSERT INTO systemLog (log_id, status, description, log_user_id, log_admin_id) VALUES (14, 1, 'Admin reviewed and resolved help request #5.', 9, 3);
 
 -- 6. helpRequest
-INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (1, 7, 0, 'Product professional body among edge old son him.', 2);
-INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (2, 7, 1, 'Market security officer describe quite should bank.', 1);
-INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (3, 2, 0, 'Financial a often.', 1);
-INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (4, 15, 1, 'Series system leg major.', 1);
-INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (5, 22, 0, 'Manage something similar because fall medical threat.', 1);
-INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (6, 5, 0, 'Improve center interview positive short TV.', 2);
-INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (7, 1, 1, 'Clear yourself build.', 3);
-INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (8, 18, 1, 'Body industry read tell.', 1);
-INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (9, 5, 0, 'Sure conference class executive.', 1);
+INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (1, 7, 0, 'Unable to update payout profile — changes are not saving.', 2);
+INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (2, 7, 1, 'Royalty payment for last quarter has not been received.', 1);
+INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (3, 2, 0, 'Release stuck in Processing status for over a week.', 1);
+INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (4, 15, 1, 'Incorrect track listing showing on published release.', 1);
+INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (5, 22, 0, 'Cannot log in — account appears to be locked.', 1);
+INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (6, 5, 0, 'Stream revenue data missing for the past two months.', 2);
+INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (7, 1, 1, 'Uploaded asset shows error status but file looks correct.', 3);
+INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (8, 18, 1, 'Need to update legal name on artist profile for tax purposes.', 1);
+INSERT INTO helpRequest (request_id, submitted_user_id, status, description, assigned_admin_id) VALUES (9, 5, 0, 'Duplicate release appeared after resubmission — please remove one.', 1);
 
 -- 7. listener
 INSERT INTO listener (listener_id, age, gender, listener_location_id) VALUES (1, 60, 'M', 9);
@@ -33962,11 +33962,7 @@ INSERT INTO streamEvent (event_id, time_stamp, is_skipped, rev_generated, event_
 -- MARCUS (LABEL HEAD) REALISTIC MOCK DATA
 -- ============================================================
 
-
--- Marcus manages NOVA (1), Kali J (3), and Alicia A. (5)
-INSERT INTO manages (manages_user_id, manages_artist_id) VALUES (26, 1);
-INSERT INTO manages (manages_user_id, manages_artist_id) VALUES (26, 3);
-INSERT INTO manages (manages_user_id, manages_artist_id) VALUES (26, 5);
+-- Marcus Johnson (user_id=66) is added in the correction block below.
 
 -- ── Releases ──────────────────────────────────────────────
 -- Release 21: "Neon Dreams" — NOVA Album — Released (fully complete, reference case)
